@@ -1,0 +1,821 @@
+[
+  {
+    "title": "Aurora Silk Blouse",
+    "slug": "aurora-silk-blouse",
+    "description": "Fluid silk blouse with a relaxed drape, hidden placket, and pearlescent buttons crafted for effortless layering.",
+    "price": 14900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size XS",
+        "sku": "BL-AURORA-XS",
+        "price": 14900,
+        "stock": 8,
+        "imageUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "name": "Size S",
+        "sku": "BL-AURORA-S",
+        "price": 14900,
+        "stock": 14,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "name": "Size M",
+        "sku": "BL-AURORA-M",
+        "price": 14900,
+        "stock": 11,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Ultra soft and polished",
+        "body": "The fabric feels luxurious and the color saturation is gorgeous. Easily dressed up or down.",
+        "status": "APPROVED",
+        "authorName": "Sienna Park",
+        "authorEmail": "sienna.park@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Great drape",
+        "body": "Love the way this blouse falls but sizing runs a touch generous. Waiting on an exchange.",
+        "status": "PENDING",
+        "authorName": "Dana Cho",
+        "authorEmail": "dana.cho@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Instagram Editorial",
+        "url": "https://claroche.shop/products/aurora-silk-blouse?utm_source=instagram&utm_medium=social",
+        "medium": "social"
+      },
+      {
+        "label": "Lookbook CTA",
+        "url": "https://claroche.shop/lookbook/aurora",
+        "medium": "lookbook"
+      }
+    ]
+  },
+  {
+    "title": "Midnight Tailored Blazer",
+    "slug": "midnight-tailored-blazer",
+    "description": "Structured wool blend blazer with sculpted shoulders, satin lining, and tonal horn buttons.",
+    "price": 27900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=70",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size 36",
+        "sku": "BLZ-MIDNIGHT-36",
+        "price": 27900,
+        "stock": 6,
+        "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "name": "Size 38",
+        "sku": "BLZ-MIDNIGHT-38",
+        "price": 27900,
+        "stock": 9,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "name": "Size 40",
+        "sku": "BLZ-MIDNIGHT-40",
+        "price": 27900,
+        "stock": 7,
+        "imageUrl": "https://images.unsplash.com/photo-1555952517-2e8e729e0b44?auto=format&fit=crop&w=800&q=80"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Tailoring perfection",
+        "body": "Sharp lines and the interior pocketing is so thoughtful. Worth every penny.",
+        "status": "APPROVED",
+        "authorName": "Rory Patel",
+        "authorEmail": "rory.patel@example.com"
+      },
+      {
+        "rating": 3,
+        "title": "Color slightly darker",
+        "body": "Beautiful blazer but arrived a shade darker than expected. Quality is excellent though.",
+        "status": "PENDING",
+        "authorName": "Mina Flores",
+        "authorEmail": "mina.flores@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Press Feature",
+        "url": "https://claroche.shop/press/midnight-blazer",
+        "medium": "press"
+      },
+      {
+        "label": "Newsletter Drop",
+        "url": "https://claroche.shop/products/midnight-tailored-blazer?utm_source=newsletter&utm_medium=email",
+        "medium": "email"
+      }
+    ]
+  },
+  {
+    "title": "Coastal Linen Shirt Dress",
+    "slug": "coastal-linen-shirt-dress",
+    "description": "Breathable linen shirt dress with removable sash belt and side seam pockets for effortless summer styling.",
+    "price": 18900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=65",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size XS",
+        "sku": "DR-COASTAL-XS",
+        "price": 18900,
+        "stock": 13,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=70"
+      },
+      {
+        "name": "Size S",
+        "sku": "DR-COASTAL-S",
+        "price": 18900,
+        "stock": 18,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=60"
+      },
+      {
+        "name": "Size M",
+        "sku": "DR-COASTAL-M",
+        "price": 18900,
+        "stock": 12,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=75"
+      },
+      {
+        "name": "Size L",
+        "sku": "DR-COASTAL-L",
+        "price": 18900,
+        "stock": 9,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=75"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Summer essential",
+        "body": "Super breathable and the pockets are deep enough for my phone. Got compliments all day.",
+        "status": "APPROVED",
+        "authorName": "Jamie Ortega",
+        "authorEmail": "jamie.ortega@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Wrinkles easily",
+        "body": "Love the fit but linen wrinkles fast. Still a closet staple for me.",
+        "status": "APPROVED",
+        "authorName": "Mara Lu",
+        "authorEmail": "mara.lu@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Vacation Guide",
+        "url": "https://claroche.shop/stories/coastal-linen-edit",
+        "medium": "blog"
+      },
+      {
+        "label": "Pinterest Editorial",
+        "url": "https://claroche.shop/products/coastal-linen-shirt-dress?utm_source=pinterest&utm_medium=social",
+        "medium": "social"
+      }
+    ]
+  },
+  {
+    "title": "Ember Merino Sweater",
+    "slug": "ember-merino-sweater",
+    "description": "Fine gauge merino crewneck sweater with rib trim detailing and a softly brushed finish.",
+    "price": 15900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=750&q=75",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Amber XS",
+        "sku": "SW-EMBER-AMB-XS",
+        "price": 15900,
+        "stock": 10,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=70"
+      },
+      {
+        "name": "Amber S",
+        "sku": "SW-EMBER-AMB-S",
+        "price": 15900,
+        "stock": 15,
+        "imageUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=700&q=75"
+      },
+      {
+        "name": "Ash M",
+        "sku": "SW-EMBER-ASH-M",
+        "price": 15900,
+        "stock": 11,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=700&q=70"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Incredibly warm",
+        "body": "Merino quality is excellent and zero itch. Holds shape after multiple wears.",
+        "status": "APPROVED",
+        "authorName": "Colin Reyes",
+        "authorEmail": "colin.reyes@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Winter Capsule",
+        "url": "https://claroche.shop/capsules/winter-essentials",
+        "medium": "campaign"
+      },
+      {
+        "label": "Homepage Hero",
+        "url": "https://claroche.shop?utm_campaign=ember_merino",
+        "medium": "homepage"
+      }
+    ]
+  },
+  {
+    "title": "Solstice Wide-Leg Trousers",
+    "slug": "solstice-wide-leg-trousers",
+    "description": "High-rise wide-leg trousers with front pleats, extended tab waist, and fluid movement.",
+    "price": 19900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size 2",
+        "sku": "TR-SOLSTICE-02",
+        "price": 19900,
+        "stock": 14,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size 4",
+        "sku": "TR-SOLSTICE-04",
+        "price": 19900,
+        "stock": 12,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size 6",
+        "sku": "TR-SOLSTICE-06",
+        "price": 19900,
+        "stock": 10,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=65"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 4,
+        "title": "Elegant flow",
+        "body": "Love the movement but had to hem slightly. Drapes beautifully otherwise.",
+        "status": "APPROVED",
+        "authorName": "Luna He",
+        "authorEmail": "luna.he@example.com"
+      },
+      {
+        "rating": 3,
+        "title": "Fabric heavier than expected",
+        "body": "Quality tailoring though fabric is a bit weighty for summer. Considering keeping.",
+        "status": "PENDING",
+        "authorName": "Veronica I.",
+        "authorEmail": "veronica.i@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Paid Search",
+        "url": "https://claroche.shop/products/solstice-wide-leg-trousers?utm_source=google&utm_medium=cpc",
+        "medium": "search"
+      },
+      {
+        "label": "Styling Session",
+        "url": "https://claroche.shop/events/solstice-styling",
+        "medium": "events"
+      }
+    ]
+  },
+  {
+    "title": "Meridian Denim Jacket",
+    "slug": "meridian-denim-jacket",
+    "description": "Organic cotton denim jacket with vintage-inspired wash, contrast topstitching, and brushed hardware.",
+    "price": 22900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1531750026848-8ada78f641c4?auto=format&fit=crop&w=780&q=75",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size S",
+        "sku": "JK-MERIDIAN-S",
+        "price": 22900,
+        "stock": 16,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=75"
+      },
+      {
+        "name": "Size M",
+        "sku": "JK-MERIDIAN-M",
+        "price": 22900,
+        "stock": 14,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=75"
+      },
+      {
+        "name": "Size L",
+        "sku": "JK-MERIDIAN-L",
+        "price": 22900,
+        "stock": 11,
+        "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=780&q=75"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Perfect wash",
+        "body": "Exactly the lived-in look I wanted. The hardware feels premium too.",
+        "status": "APPROVED",
+        "authorName": "Eli Navarro",
+        "authorEmail": "eli.navarro@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Runs roomy",
+        "body": "Nice jacket but slightly oversized. I sized down and it's perfect.",
+        "status": "APPROVED",
+        "authorName": "Grace Liu",
+        "authorEmail": "grace.liu@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Editorial Feature",
+        "url": "https://claroche.shop/editorials/meridian-denim",
+        "medium": "editorial"
+      },
+      {
+        "label": "Affiliate Campaign",
+        "url": "https://claroche.shop/products/meridian-denim-jacket?utm_source=rewardstyle&utm_medium=affiliate",
+        "medium": "affiliate"
+      }
+    ]
+  },
+  {
+    "title": "Cascade Pleated Skirt",
+    "slug": "cascade-pleated-skirt",
+    "description": "Midi skirt with sunburst pleats, bonded waistband, and fluid recycled satin for motion-rich movement.",
+    "price": 16900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=780&q=75",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size 0",
+        "sku": "SK-CASCADE-00",
+        "price": 16900,
+        "stock": 9,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=720&q=75"
+      },
+      {
+        "name": "Size 2",
+        "sku": "SK-CASCADE-02",
+        "price": 16900,
+        "stock": 10,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=75"
+      },
+      {
+        "name": "Size 4",
+        "sku": "SK-CASCADE-04",
+        "price": 16900,
+        "stock": 11,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=720&q=75"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Twirl-worthy",
+        "body": "Pleats lay perfectly and the fabric has a subtle sheen. Love pairing with knits.",
+        "status": "APPROVED",
+        "authorName": "Harper Quinn",
+        "authorEmail": "harper.quinn@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Needs careful storage",
+        "body": "Beautiful skirt but pleats need to hang to avoid creasing. Still worth it.",
+        "status": "PENDING",
+        "authorName": "Mona Seok",
+        "authorEmail": "mona.seok@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Event Styling",
+        "url": "https://claroche.shop/styling/cascade-pleated-skirt",
+        "medium": "styling"
+      },
+      {
+        "label": "TikTok Series",
+        "url": "https://claroche.shop/products/cascade-pleated-skirt?utm_source=tiktok&utm_medium=social",
+        "medium": "social"
+      }
+    ]
+  },
+  {
+    "title": "Horizon Quilted Parka",
+    "slug": "horizon-quilted-parka",
+    "description": "Longline quilted parka with recycled down fill, water-repellent shell, and adjustable hood.",
+    "price": 34900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=60",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size S",
+        "sku": "PRK-HORIZON-S",
+        "price": 34900,
+        "stock": 8,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=65"
+      },
+      {
+        "name": "Size M",
+        "sku": "PRK-HORIZON-M",
+        "price": 34900,
+        "stock": 6,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=65"
+      },
+      {
+        "name": "Size L",
+        "sku": "PRK-HORIZON-L",
+        "price": 34900,
+        "stock": 5,
+        "imageUrl": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=780&q=65"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Warmth without bulk",
+        "body": "Kept me warm in 20°F with minimal layering. The hood cinch is a nice touch.",
+        "status": "APPROVED",
+        "authorName": "Noah Kendall",
+        "authorEmail": "noah.kendall@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Zipper a bit stiff",
+        "body": "Top tier insulation but zipper needs breaking in. Overall still love it.",
+        "status": "PENDING",
+        "authorName": "Priya R.",
+        "authorEmail": "priya.r@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Winter Campaign",
+        "url": "https://claroche.shop/campaigns/horizon-parka",
+        "medium": "campaign"
+      },
+      {
+        "label": "Facebook Retargeting",
+        "url": "https://claroche.shop/products/horizon-quilted-parka?utm_source=facebook&utm_medium=paid_social",
+        "medium": "social"
+      }
+    ]
+  },
+  {
+    "title": "Lumen Seamless Leggings",
+    "slug": "lumen-seamless-leggings",
+    "description": "High-rise seamless leggings with four-way stretch, moisture wicking, and subtle contouring.",
+    "price": 8900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=720&q=70",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Midnight XS",
+        "sku": "LG-LUMEN-MID-XS",
+        "price": 8900,
+        "stock": 20,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=70"
+      },
+      {
+        "name": "Midnight S",
+        "sku": "LG-LUMEN-MID-S",
+        "price": 8900,
+        "stock": 18,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=720&q=70"
+      },
+      {
+        "name": "Sage M",
+        "sku": "LG-LUMEN-SAGE-M",
+        "price": 8900,
+        "stock": 15,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=70"
+      },
+      {
+        "name": "Sage L",
+        "sku": "LG-LUMEN-SAGE-L",
+        "price": 8900,
+        "stock": 11,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=720&q=70"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Stays put during workouts",
+        "body": "No slipping or rolling even during HIIT. Fabric feels substantial.",
+        "status": "APPROVED",
+        "authorName": "Rae Morgan",
+        "authorEmail": "rae.morgan@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Would love more colors",
+        "body": "Fit is fantastic but please release more shades!",
+        "status": "APPROVED",
+        "authorName": "Zoe Banks",
+        "authorEmail": "zoe.banks@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Studio Event",
+        "url": "https://claroche.shop/events/lumen-studio-series",
+        "medium": "events"
+      },
+      {
+        "label": "Instagram Stories",
+        "url": "https://claroche.shop/products/lumen-seamless-leggings?utm_source=instagram&utm_medium=stories",
+        "medium": "social"
+      }
+    ]
+  },
+  {
+    "title": "Vesper Cashmere Cardigan",
+    "slug": "vesper-cashmere-cardigan",
+    "description": "100% Mongolian cashmere cardigan with corozo buttons, drop shoulder, and ribbed cuffs.",
+    "price": 25900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=780&q=70",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Oat XS",
+        "sku": "CD-VESPER-OAT-XS",
+        "price": 25900,
+        "stock": 9,
+        "imageUrl": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Oat S",
+        "sku": "CD-VESPER-OAT-S",
+        "price": 25900,
+        "stock": 12,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Ash M",
+        "sku": "CD-VESPER-ASH-M",
+        "price": 25900,
+        "stock": 11,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Heavenly soft",
+        "body": "Buttery soft cashmere and the drape is luxe. True investment piece.",
+        "status": "APPROVED",
+        "authorName": "Ivy Keller",
+        "authorEmail": "ivy.keller@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Delicate fiber",
+        "body": "Requires careful storage but worth it for the quality.",
+        "status": "PENDING",
+        "authorName": "Samira N.",
+        "authorEmail": "samira.n@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "VIP Clienteling",
+        "url": "https://claroche.shop/vip/vesper-cardigan",
+        "medium": "clienteling"
+      },
+      {
+        "label": "Gift Guide",
+        "url": "https://claroche.shop/gift-guide/vesper",
+        "medium": "guide"
+      }
+    ]
+  },
+  {
+    "title": "Atlas Leather Boots",
+    "slug": "atlas-leather-boots",
+    "description": "Hand-finished calf leather ankle boots with stacked heel, memory foam insole, and metal zip.",
+    "price": 32000,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=780&q=70",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size 36",
+        "sku": "BT-ATLAS-36",
+        "price": 32000,
+        "stock": 6,
+        "imageUrl": "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size 37",
+        "sku": "BT-ATLAS-37",
+        "price": 32000,
+        "stock": 7,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size 38",
+        "sku": "BT-ATLAS-38",
+        "price": 32000,
+        "stock": 8,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Sculptural and comfy",
+        "body": "Wear all day with zero discomfort. Leather aging beautifully already.",
+        "status": "APPROVED",
+        "authorName": "Cam Riley",
+        "authorEmail": "cam.riley@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Break-in required",
+        "body": "Needed a couple wears to soften but craftsmanship is impeccable.",
+        "status": "APPROVED",
+        "authorName": "Lucia B.",
+        "authorEmail": "lucia.b@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Lookbook Footwear",
+        "url": "https://claroche.shop/lookbook/atlas-boots",
+        "medium": "lookbook"
+      },
+      {
+        "label": "Affiliate VIP",
+        "url": "https://claroche.shop/products/atlas-leather-boots?utm_source=luxeedit&utm_medium=affiliate",
+        "medium": "affiliate"
+      }
+    ]
+  },
+  {
+    "title": "Prism Technical Windbreaker",
+    "slug": "prism-technical-windbreaker",
+    "description": "Lightweight windbreaker with bonded seams, packable hood, and reflective detailing for active commutes.",
+    "price": 13900,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=65",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size XS",
+        "sku": "WB-PRISM-XS",
+        "price": 13900,
+        "stock": 15,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size S",
+        "sku": "WB-PRISM-S",
+        "price": 13900,
+        "stock": 14,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size M",
+        "sku": "WB-PRISM-M",
+        "price": 13900,
+        "stock": 10,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size L",
+        "sku": "WB-PRISM-L",
+        "price": 13900,
+        "stock": 9,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 4,
+        "title": "Great for commuting",
+        "body": "Packs down tiny and works against light rain. Zippers are smooth too.",
+        "status": "APPROVED",
+        "authorName": "Drew Castillo",
+        "authorEmail": "drew.castillo@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Wish it had vents",
+        "body": "Love the reflective panels but underarm vents would make it perfect.",
+        "status": "PENDING",
+        "authorName": "Nina Varga",
+        "authorEmail": "nina.varga@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Run Club",
+        "url": "https://claroche.shop/community/prism-run-club",
+        "medium": "community"
+      },
+      {
+        "label": "YouTube Review",
+        "url": "https://claroche.shop/products/prism-technical-windbreaker?utm_source=youtube&utm_medium=video",
+        "medium": "video"
+      }
+    ]
+  },
+  {
+    "title": "Strata Wool Overcoat",
+    "slug": "strata-wool-overcoat",
+    "description": "Double-faced Italian wool overcoat with peak lapels, hidden placket, and hand-finished seams.",
+    "price": 42000,
+    "currency": "USD",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=780&q=65",
+    "status": "PUBLISHED",
+    "variants": [
+      {
+        "name": "Size 36",
+        "sku": "OC-STRATA-36",
+        "price": 42000,
+        "stock": 4,
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size 38",
+        "sku": "OC-STRATA-38",
+        "price": 42000,
+        "stock": 5,
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+      },
+      {
+        "name": "Size 40",
+        "sku": "OC-STRATA-40",
+        "price": 42000,
+        "stock": 5,
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70"
+      }
+    ],
+    "reviews": [
+      {
+        "rating": 5,
+        "title": "Showstopper piece",
+        "body": "Impeccable tailoring and so warm without feeling heavy. A forever coat.",
+        "status": "APPROVED",
+        "authorName": "Lara Finch",
+        "authorEmail": "lara.finch@example.com"
+      },
+      {
+        "rating": 4,
+        "title": "Minor lint",
+        "body": "Picks up lint but that's expected with wool. Still my favorite outerwear.",
+        "status": "APPROVED",
+        "authorName": "Gina R.",
+        "authorEmail": "gina.r@example.com"
+      }
+    ],
+    "linkTrackers": [
+      {
+        "label": "Runway Capsule",
+        "url": "https://claroche.shop/capsule/strata-overcoat",
+        "medium": "campaign"
+      },
+      {
+        "label": "Magazine Feature",
+        "url": "https://claroche.shop/press/strata",
+        "medium": "press"
+      }
+    ]
+  }
+]

@@ -1,30 +1,50 @@
 ## Claroche
 
-Claroche este un magazin online de activewear construit cu Next.js 15, TypeScript, Tailwind CSS și shadcn/ui. Proiectul își propune o experiență mobilă, curată și îndrăzneață, inspirată din stilul Gymshark, dar complet originală.
+Claroche is an activewear storefront built with Next.js 15, TypeScript, Tailwind CSS, and shadcn/ui. This update wires in Prisma for data modelling plus NextAuth credentials-based authentication, with SQLite as the default database and a ready-to-switch PostgreSQL setup.
 
 ### Stack
 - Next.js 15 (App Router)
 - TypeScript (strict mode)
-- Tailwind CSS
-- shadcn/ui + Radix UI primitives
+- Tailwind CSS + shadcn/ui (Radix UI primitives)
+- Prisma ORM (`prisma/schema.prisma`)
+- NextAuth Credentials Provider
+- SQLite by default / PostgreSQL when `DATABASE_URL` points to Postgres
 
-### Structură de foldere
-- `app/` – layout global, pagina principală și stiluri
-- `components/` – componente partajate și UI (button, input, sheet, accordion)
-- `public/` – favicon SVG
-- Configurații: `next.config.ts`, `tailwind.config.ts`, `postcss.config.js`, `tsconfig.json`
+### Folder Structure
+- `app/` - layouts, pages, and the auth route handler (`app/api/auth/[...nextauth]`)
+- `components/` - shared UI components
+- `lib/` - project utilities plus `db.ts` (Prisma client) and `auth.ts` (NextAuth config)
+- `prisma/` - `schema.prisma`, TypeScript seed script, and catalog data (`data/products.seed.json`)
+- `public/` - static assets (favicon)
+- Config files: `next.config.ts`, `tailwind.config.ts`, `postcss.config.js`, `tsconfig.json`
 
-### Scripturi disponibile
-- `npm run dev` – pornește mediul de dezvoltare
-- `npm run build` – generează build-ul de producție
-- `npm run start` – rulează serverul în modul producție
-- `npm run lint` – rulează verificările ESLint
+### Quick Start
+1. Copy `.env.example` to `.env` and adjust values if needed.
+2. Install dependencies: `npm install`
+3. Generate Prisma Client: `npm run prisma:generate`
+4. Apply database migrations (SQLite by default): `npm run prisma:migrate`
+5. Seed the database with the admin user and demo catalog: `npm run prisma:seed`
+6. Start the dev server: `npm run dev`
+7. Visit `http://localhost:3000`
 
-### Pași inițiali
-1. Instalează dependențele: `npm install`
-2. Rulează mediul local: `npm run dev`
-3. Accesează `http://localhost:3000` pentru a vedea claroche.
+### Available Scripts
+- `npm run dev` - start the development server
+- `npm run build` - build for production
+- `npm run start` - run the production server
+- `npm run lint` - run ESLint checks
+- `npm run prisma:generate` - generate Prisma Client
+- `npm run prisma:migrate` - run development migrations
+- `npm run prisma:seed` - execute the Prisma seed script
 
-### Politici media
-- Imaginile folosesc doar URL-uri externe (Unsplash / Cloudinary)
-- Repo-ul nu acceptă fișiere binare (png/jpg/webp/ico/woff2); vezi regulile din `.gitignore`
+The seed script provisions:
+- Admin account `admin@claroche.shop` with password `Admin#12345`
+- 12 demo products, each with variants, reviews (approved and pending), and link trackers
+
+### PostgreSQL Ready
+- Point `DATABASE_URL` at your Postgres instance.
+- Update `provider` inside `prisma/schema.prisma` to `"postgresql"`.
+- Re-run `npm run prisma:migrate` to apply migrations.
+
+### Media Policy
+- Only remote image URLs (Unsplash / Cloudinary) are used.
+- The repo should not contain binary assets (png/jpg/webp/ico/woff2); refer to `.gitignore` for details.
