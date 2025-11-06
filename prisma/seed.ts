@@ -17,6 +17,8 @@ interface SeedVariant {
   price: number;
   stock: number;
   imageUrl?: string;
+  size?: string;
+  color?: string;
 }
 
 interface SeedReview {
@@ -123,6 +125,8 @@ async function seedProducts() {
             price: variant.price,
             stock: variant.stock,
             imageUrl: variant.imageUrl,
+            size: variant.size,
+            color: variant.color,
           })),
         },
         reviews: {

@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "title": "Aurora Silk Blouse",
     "slug": "aurora-silk-blouse",
@@ -9,25 +9,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size XS",
-        "sku": "BL-AURORA-XS",
+        "name": "Ivory / XS",
+        "sku": "BL-AURORA-IVORY-XS",
         "price": 14900,
         "stock": 8,
-        "imageUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80"
+        "imageUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
+        "size": "XS",
+        "color": "Ivory"
       },
       {
-        "name": "Size S",
-        "sku": "BL-AURORA-S",
+        "name": "Ivory / S",
+        "sku": "BL-AURORA-IVORY-S",
         "price": 14900,
         "stock": 14,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80",
+        "size": "S",
+        "color": "Ivory"
       },
       {
-        "name": "Size M",
-        "sku": "BL-AURORA-M",
+        "name": "Blush / M",
+        "sku": "BL-AURORA-BLUSH-M",
         "price": 14900,
         "stock": 11,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+        "size": "M",
+        "color": "Blush"
       }
     ],
     "reviews": [
@@ -71,25 +77,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size 36",
-        "sku": "BLZ-MIDNIGHT-36",
+        "name": "Navy / 36",
+        "sku": "BLZ-MIDNIGHT-NAVY-36",
         "price": 27900,
         "stock": 6,
-        "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+        "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+        "size": "36",
+        "color": "Navy"
       },
       {
-        "name": "Size 38",
-        "sku": "BLZ-MIDNIGHT-38",
+        "name": "Navy / 38",
+        "sku": "BLZ-MIDNIGHT-NAVY-38",
         "price": 27900,
         "stock": 9,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80",
+        "size": "38",
+        "color": "Navy"
       },
       {
-        "name": "Size 40",
-        "sku": "BLZ-MIDNIGHT-40",
+        "name": "Charcoal / 40",
+        "sku": "BLZ-MIDNIGHT-CHARCOAL-40",
         "price": 27900,
         "stock": 7,
-        "imageUrl": "https://images.unsplash.com/photo-1555952517-2e8e729e0b44?auto=format&fit=crop&w=800&q=80"
+        "imageUrl": "https://images.unsplash.com/photo-1555952517-2e8e729e0b44?auto=format&fit=crop&w=800&q=80",
+        "size": "40",
+        "color": "Charcoal"
       }
     ],
     "reviews": [
@@ -133,32 +145,40 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size XS",
-        "sku": "DR-COASTAL-XS",
+        "name": "Sand / XS",
+        "sku": "DR-COASTAL-SAND-XS",
         "price": 18900,
         "stock": 13,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=70",
+        "size": "XS",
+        "color": "Sand"
       },
       {
-        "name": "Size S",
-        "sku": "DR-COASTAL-S",
+        "name": "Sand / S",
+        "sku": "DR-COASTAL-SAND-S",
         "price": 18900,
         "stock": 18,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=60"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=60",
+        "size": "S",
+        "color": "Sand"
       },
       {
-        "name": "Size M",
-        "sku": "DR-COASTAL-M",
+        "name": "Seafoam / M",
+        "sku": "DR-COASTAL-SEAFOAM-M",
         "price": 18900,
         "stock": 12,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=75",
+        "size": "M",
+        "color": "Seafoam"
       },
       {
-        "name": "Size L",
-        "sku": "DR-COASTAL-L",
+        "name": "Seafoam / L",
+        "sku": "DR-COASTAL-SEAFOAM-L",
         "price": 18900,
         "stock": 9,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=75",
+        "size": "L",
+        "color": "Seafoam"
       }
     ],
     "reviews": [
@@ -191,7 +211,8 @@
         "medium": "social"
       }
     ]
-  },
+  }
+,
   {
     "title": "Ember Merino Sweater",
     "slug": "ember-merino-sweater",
@@ -202,25 +223,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Amber XS",
-        "sku": "SW-EMBER-AMB-XS",
+        "name": "Amber / XS",
+        "sku": "SW-EMBER-AMBER-XS",
         "price": 15900,
         "stock": 10,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=70",
+        "size": "XS",
+        "color": "Amber"
       },
       {
-        "name": "Amber S",
-        "sku": "SW-EMBER-AMB-S",
+        "name": "Amber / S",
+        "sku": "SW-EMBER-AMBER-S",
         "price": 15900,
         "stock": 15,
-        "imageUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=700&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=700&q=75",
+        "size": "S",
+        "color": "Amber"
       },
       {
-        "name": "Ash M",
+        "name": "Ash / M",
         "sku": "SW-EMBER-ASH-M",
         "price": 15900,
         "stock": 11,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=700&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=700&q=70",
+        "size": "M",
+        "color": "Ash"
       }
     ],
     "reviews": [
@@ -256,25 +283,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size 2",
-        "sku": "TR-SOLSTICE-02",
+        "name": "Bone / 2",
+        "sku": "TR-SOLSTICE-BONE-02",
         "price": 19900,
         "stock": 14,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70",
+        "size": "2",
+        "color": "Bone"
       },
       {
-        "name": "Size 4",
-        "sku": "TR-SOLSTICE-04",
+        "name": "Bone / 4",
+        "sku": "TR-SOLSTICE-BONE-04",
         "price": 19900,
         "stock": 12,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70",
+        "size": "4",
+        "color": "Bone"
       },
       {
-        "name": "Size 6",
-        "sku": "TR-SOLSTICE-06",
+        "name": "Slate / 6",
+        "sku": "TR-SOLSTICE-SLATE-06",
         "price": 19900,
         "stock": 10,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=65"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=65",
+        "size": "6",
+        "color": "Slate"
       }
     ],
     "reviews": [
@@ -318,25 +351,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size S",
-        "sku": "JK-MERIDIAN-S",
+        "name": "Indigo / S",
+        "sku": "JK-MERIDIAN-INDIGO-S",
         "price": 22900,
         "stock": 16,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=75",
+        "size": "S",
+        "color": "Indigo"
       },
       {
-        "name": "Size M",
-        "sku": "JK-MERIDIAN-M",
+        "name": "Indigo / M",
+        "sku": "JK-MERIDIAN-INDIGO-M",
         "price": 22900,
         "stock": 14,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=75",
+        "size": "M",
+        "color": "Indigo"
       },
       {
-        "name": "Size L",
-        "sku": "JK-MERIDIAN-L",
+        "name": "Stone / L",
+        "sku": "JK-MERIDIAN-STONE-L",
         "price": 22900,
         "stock": 11,
-        "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=780&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=780&q=75",
+        "size": "L",
+        "color": "Stone"
       }
     ],
     "reviews": [
@@ -380,25 +419,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size 0",
-        "sku": "SK-CASCADE-00",
+        "name": "Pearl / 0",
+        "sku": "SK-CASCADE-PEARL-00",
         "price": 16900,
         "stock": 9,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=720&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=720&q=75",
+        "size": "0",
+        "color": "Pearl"
       },
       {
-        "name": "Size 2",
-        "sku": "SK-CASCADE-02",
+        "name": "Pearl / 2",
+        "sku": "SK-CASCADE-PEARL-02",
         "price": 16900,
         "stock": 10,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=75",
+        "size": "2",
+        "color": "Pearl"
       },
       {
-        "name": "Size 4",
-        "sku": "SK-CASCADE-04",
+        "name": "Marigold / 4",
+        "sku": "SK-CASCADE-MARIGOLD-04",
         "price": 16900,
         "stock": 11,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=720&q=75"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=720&q=75",
+        "size": "4",
+        "color": "Marigold"
       }
     ],
     "reviews": [
@@ -442,25 +487,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size S",
-        "sku": "PRK-HORIZON-S",
+        "name": "Coal / S",
+        "sku": "PRK-HORIZON-COAL-S",
         "price": 34900,
         "stock": 8,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=65"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=65",
+        "size": "S",
+        "color": "Coal"
       },
       {
-        "name": "Size M",
-        "sku": "PRK-HORIZON-M",
+        "name": "Coal / M",
+        "sku": "PRK-HORIZON-COAL-M",
         "price": 34900,
         "stock": 6,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=65"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=65",
+        "size": "M",
+        "color": "Coal"
       },
       {
-        "name": "Size L",
-        "sku": "PRK-HORIZON-L",
+        "name": "Olive / L",
+        "sku": "PRK-HORIZON-OLIVE-L",
         "price": 34900,
         "stock": 5,
-        "imageUrl": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=780&q=65"
+        "imageUrl": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=780&q=65",
+        "size": "L",
+        "color": "Olive"
       }
     ],
     "reviews": [
@@ -504,32 +555,40 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Midnight XS",
-        "sku": "LG-LUMEN-MID-XS",
+        "name": "Midnight / XS",
+        "sku": "LG-LUMEN-MIDNIGHT-XS",
         "price": 8900,
         "stock": 20,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=70",
+        "size": "XS",
+        "color": "Midnight"
       },
       {
-        "name": "Midnight S",
-        "sku": "LG-LUMEN-MID-S",
+        "name": "Midnight / S",
+        "sku": "LG-LUMEN-MIDNIGHT-S",
         "price": 8900,
         "stock": 18,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=720&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=720&q=70",
+        "size": "S",
+        "color": "Midnight"
       },
       {
-        "name": "Sage M",
+        "name": "Sage / M",
         "sku": "LG-LUMEN-SAGE-M",
         "price": 8900,
         "stock": 15,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=70",
+        "size": "M",
+        "color": "Sage"
       },
       {
-        "name": "Sage L",
+        "name": "Sage / L",
         "sku": "LG-LUMEN-SAGE-L",
         "price": 8900,
         "stock": 11,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=720&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=720&q=70",
+        "size": "L",
+        "color": "Sage"
       }
     ],
     "reviews": [
@@ -573,25 +632,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Oat XS",
+        "name": "Oat / XS",
         "sku": "CD-VESPER-OAT-XS",
         "price": 25900,
         "stock": 9,
-        "imageUrl": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=780&q=70",
+        "size": "XS",
+        "color": "Oat"
       },
       {
-        "name": "Oat S",
+        "name": "Oat / S",
         "sku": "CD-VESPER-OAT-S",
         "price": 25900,
         "stock": 12,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70",
+        "size": "S",
+        "color": "Oat"
       },
       {
-        "name": "Ash M",
+        "name": "Ash / M",
         "sku": "CD-VESPER-ASH-M",
         "price": 25900,
         "stock": 11,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70",
+        "size": "M",
+        "color": "Ash"
       }
     ],
     "reviews": [
@@ -635,25 +700,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size 36",
-        "sku": "BT-ATLAS-36",
+        "name": "Umber / 36",
+        "sku": "BT-ATLAS-UMBER-36",
         "price": 32000,
         "stock": 6,
-        "imageUrl": "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=780&q=70",
+        "size": "36",
+        "color": "Umber"
       },
       {
-        "name": "Size 37",
-        "sku": "BT-ATLAS-37",
+        "name": "Umber / 37",
+        "sku": "BT-ATLAS-UMBER-37",
         "price": 32000,
         "stock": 7,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70",
+        "size": "37",
+        "color": "Umber"
       },
       {
-        "name": "Size 38",
-        "sku": "BT-ATLAS-38",
+        "name": "Black / 38",
+        "sku": "BT-ATLAS-BLACK-38",
         "price": 32000,
         "stock": 8,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70",
+        "size": "38",
+        "color": "Black"
       }
     ],
     "reviews": [
@@ -697,32 +768,40 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size XS",
-        "sku": "WB-PRISM-XS",
+        "name": "Graphite / XS",
+        "sku": "WB-PRISM-GRAPHITE-XS",
         "price": 13900,
         "stock": 15,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70",
+        "size": "XS",
+        "color": "Graphite"
       },
       {
-        "name": "Size S",
-        "sku": "WB-PRISM-S",
+        "name": "Graphite / S",
+        "sku": "WB-PRISM-GRAPHITE-S",
         "price": 13900,
         "stock": 14,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70",
+        "size": "S",
+        "color": "Graphite"
       },
       {
-        "name": "Size M",
-        "sku": "WB-PRISM-M",
+        "name": "Cobalt / M",
+        "sku": "WB-PRISM-COBALT-M",
         "price": 13900,
         "stock": 10,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70",
+        "size": "M",
+        "color": "Cobalt"
       },
       {
-        "name": "Size L",
-        "sku": "WB-PRISM-L",
+        "name": "Cobalt / L",
+        "sku": "WB-PRISM-COBALT-L",
         "price": 13900,
         "stock": 9,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70",
+        "size": "L",
+        "color": "Cobalt"
       }
     ],
     "reviews": [
@@ -766,25 +845,31 @@
     "status": "PUBLISHED",
     "variants": [
       {
-        "name": "Size 36",
-        "sku": "OC-STRATA-36",
+        "name": "Camel / 36",
+        "sku": "OC-STRATA-CAMEL-36",
         "price": 42000,
         "stock": 4,
-        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=780&q=70",
+        "size": "36",
+        "color": "Camel"
       },
       {
-        "name": "Size 38",
-        "sku": "OC-STRATA-38",
+        "name": "Camel / 38",
+        "sku": "OC-STRATA-CAMEL-38",
         "price": 42000,
         "stock": 5,
-        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=780&q=70",
+        "size": "38",
+        "color": "Camel"
       },
       {
-        "name": "Size 40",
-        "sku": "OC-STRATA-40",
+        "name": "Black / 40",
+        "sku": "OC-STRATA-BLACK-40",
         "price": 42000,
         "stock": 5,
-        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70"
+        "imageUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=780&q=70",
+        "size": "40",
+        "color": "Black"
       }
     ],
     "reviews": [
