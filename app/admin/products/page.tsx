@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 import { requireAdminSession } from "@/lib/auth";
 import {
@@ -48,6 +48,7 @@ export default async function AdminProductsPage({ searchParams }: ProductsPagePr
 
     await deleteAdminProduct(productId);
     revalidatePath("/admin/products");
+    revalidateTag("products");
   }
 
   return (

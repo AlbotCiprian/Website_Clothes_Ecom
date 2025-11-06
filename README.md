@@ -45,6 +45,12 @@ The seed script provisions:
 - The admin shell exposes a dashboard (7/30 day KPIs), product CRUD (with variant management), review moderation, and a campaign link generator with hit analytics.
 - All admin routes require an authenticated session with the `admin` role; the UI signs out via NextAuth.
 
+### Contributing & Tooling
+- Run `npm run lint` and `npm run build` locally before submitting changes.
+- Use `npm run format` or rely on the pre-commit hooks (Husky + lint-staged) to auto-format staged files with Prettier and ESLint.
+- CI validates pull requests via `.github/workflows/ci.yml`, ensuring install, lint, and build succeed.
+- All text files standardise on LF endings via `.gitattributes`; avoid committing generated artefacts or binaries.
+
 ### PostgreSQL Ready
 - Point `DATABASE_URL` at your Postgres instance.
 - Update `provider` inside `prisma/schema.prisma` to `"postgresql"`.

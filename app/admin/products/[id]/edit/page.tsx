@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 import ProductForm from "@/components/admin/ProductForm";
 import { requireAdminSession } from "@/lib/auth";
 import {
   getAdminProduct,
+  parseAdminProductPayload,
   updateAdminProduct,
-  type AdminProductInput,
 } from "@/lib/admin/products";
 
 type EditProductPageProps = {
@@ -30,10 +30,11 @@ export default async function AdminEditProductPage({ params }: EditProductPagePr
       throw new Error("Missing payload");
     }
 
-    const input = parsePayload(payload);
+    const input = parseAdminProductPayload(JSON.parse(payload));
     await updateAdminProduct(params.id, input);
     revalidatePath("/admin/products");
     revalidatePath(`/admin/products/${params.id}/edit`);
+    revalidateTag("products");
   }
 
   const initialState = {
@@ -72,71 +73,4 @@ export default async function AdminEditProductPage({ params }: EditProductPagePr
       />
     </section>
   );
-}
-
-function parsePayload(raw: string): AdminProductInput {
-  const data = JSON.parse(raw) as {
-    title: string;
-    slug: string;
-    price: string;
-    currency?: string;
-    status: string;
-    description?: string;
-    thumbnailUrl?: string;
-    variants: Array<{
-      id?: string;
-      name: string;
-      price: string;
-      stock: string;
-      size?: string;
-      color?: string;
-      sku?: string;
-      imageUrl?: string;
-      deleted?: boolean;
-    }>;
-  };
-
-  return {
-    title: data.title,
-    slug: data.slug,
-    description: data.description ?? null,
-    price: parsePrice(data.price),
-    currency: data.currency?.toUpperCase() ?? "USD",
-    thumbnailUrl: data.thumbnailUrl ?? null,
-    status: toStatus(data.status),
-    variants: data.variants.map((variant) => {
-      const stock = Number.parseInt(variant.stock || "0", 10);
-      return {
-        id: variant.id,
-        name: variant.name,
-        price: parsePrice(variant.price),
-        stock: Number.isNaN(stock) ? 0 : stock,
-        size: variant.size || null,
-        color: variant.color || null,
-        sku: variant.sku || null,
-        imageUrl: variant.imageUrl || null,
-        deleted: Boolean(variant.deleted),
-      };
-    }),
-  };
-}
-
-function parsePrice(value: string) {
-  const normalised = value.replace(/[^0-9.]/g, "");
-  const number = Number.parseFloat(normalised);
-  if (Number.isNaN(number)) {
-    return 0;
-  }
-  return Math.round(number * 100);
-}
-
-function toStatus(value: string) {
-  switch (value) {
-    case "DRAFT":
-      return "DRAFT";
-    case "ARCHIVED":
-      return "ARCHIVED";
-    default:
-      return "PUBLISHED";
-  }
 }

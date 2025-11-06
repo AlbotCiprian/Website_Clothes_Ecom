@@ -195,6 +195,23 @@ model AddToCartEvent {
   @@index([productId])
 }
 
+model TrackingEvent {
+  id         String   @id @default(cuid())
+  event      String
+  path       String
+  productId  String?
+  linkId     String?
+  ref        String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  product  Product?     @relation(fields: [productId], references: [id], onDelete: SetNull)
+  link     LinkTracker? @relation(fields: [linkId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([event])
+}
+
 model Account {
   id                String   @id @default(cuid())
   userId            String

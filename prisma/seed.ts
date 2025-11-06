@@ -74,6 +74,7 @@ function resolveProductStatus(
 
 async function resetDatabase() {
   await prisma.$transaction([
+    prisma.trackingEvent.deleteMany(),
     prisma.addToCartEvent.deleteMany(),
     prisma.hit.deleteMany(),
     prisma.linkTracker.deleteMany(),

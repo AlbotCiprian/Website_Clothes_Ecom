@@ -1,4 +1,5 @@
 import { Prisma, ProductStatus, ReviewStatus } from "@prisma/client";
+import { unstable_cache } from "next/cache";
 
 import { prisma } from "./db";
 
@@ -95,83 +96,110 @@ export interface ProductListResponse {
   };
 }
 
+const cachedProductList = unstable_cache(
+  async (params: ProductListParams = {}): Promise<ProductListResponse> => {
+    const take = Math.max(1, params.take ?? 12);
+    const page = Math.max(1, params.page ?? 1);
+    const skip = (page - 1) * take;
+
+    const where = buildProductWhere(params);
+    const orderBy = buildOrderBy(params.sort);
+
+    const [rawProducts, totalItems, sizeOptions, colorOptions, priceRange] = await prisma.$transaction([
+      prisma.product.findMany({
+        where,
+        orderBy,
+        skip,
+        take: take + 1, // fetch one extra to determine next page
+        include: {
+          variants: {
+            select: {
+              id: true,
+              name: true,
+              price: true,
+              stock: true,
+              size: true,
+              color: true,
+            },
+          },
+          reviews: {
+            where: { status: ReviewStatus.APPROVED },
+            select: { rating: true },
+          },
+        },
+      }),
+      prisma.product.count({ where }),
+      prisma.variant.findMany({
+        distinct: ["size"],
+        where: { size: { not: null } },
+        orderBy: { size: "asc" },
+        select: { size: true },
+      }),
+      prisma.variant.findMany({
+        distinct: ["color"],
+        where: { color: { not: null } },
+        orderBy: { color: "asc" },
+        select: { color: true },
+      }),
+      prisma.product.aggregate({
+        _min: { price: true },
+        _max: { price: true },
+      }),
+    ]);
+
+    const hasNextPage = rawProducts.length > take;
+    const items = rawProducts.slice(0, take).map(mapProductListItem);
+
+    return {
+      items,
+      pageInfo: {
+        page,
+        take,
+        totalItems,
+        totalPages: Math.max(1, Math.ceil(totalItems / take)),
+        hasNextPage,
+        hasPreviousPage: page > 1,
+      },
+      facets: {
+        sizes: sizeOptions
+          .map(({ size }) => size)
+          .filter((size): size is string => Boolean(size)),
+        colors: colorOptions
+          .map(({ color }) => color)
+          .filter((color): color is string => Boolean(color)),
+        priceRange: {
+          min: priceRange._min.price ?? null,
+          max: priceRange._max.price ?? null,
+        },
+      },
+    };
+  },
+  ["product-list"],
+  { tags: ["products"] },
+);
+
 export async function getProductList(params: ProductListParams = {}): Promise<ProductListResponse> {
-  const take = Math.max(1, params.take ?? 12);
-  const page = Math.max(1, params.page ?? 1);
-  const skip = (page - 1) * take;
+  return cachedProductList(params);
+}
 
-  const where = buildProductWhere(params);
-  const orderBy = buildOrderBy(params.sort);
-
-  const [rawProducts, totalItems, sizeOptions, colorOptions, priceRange] = await prisma.$transaction([
-    prisma.product.findMany({
-      where,
-      orderBy,
-      skip,
-      take: take + 1, // fetch one extra to determine next page
+const cachedProductBySlug = unstable_cache(
+  async (slug: string) =>
+    prisma.product.findUnique({
+      where: { slug },
       include: {
         variants: {
-          select: {
-            id: true,
-            name: true,
-            price: true,
-            stock: true,
-            size: true,
-            color: true,
-          },
+          orderBy: { price: "asc" },
         },
         reviews: {
           where: { status: ReviewStatus.APPROVED },
-          select: { rating: true },
+          orderBy: { createdAt: "desc" },
         },
+        linkTrackers: true,
       },
     }),
-    prisma.product.count({ where }),
-    prisma.variant.findMany({
-      distinct: ["size"],
-      where: { size: { not: null } },
-      orderBy: { size: "asc" },
-      select: { size: true },
-    }),
-    prisma.variant.findMany({
-      distinct: ["color"],
-      where: { color: { not: null } },
-      orderBy: { color: "asc" },
-      select: { color: true },
-    }),
-    prisma.product.aggregate({
-      _min: { price: true },
-      _max: { price: true },
-    }),
-  ]);
-
-  const hasNextPage = rawProducts.length > take;
-  const items = rawProducts.slice(0, take).map(mapProductListItem);
-
-  return {
-    items,
-    pageInfo: {
-      page,
-      take,
-      totalItems,
-      totalPages: Math.max(1, Math.ceil(totalItems / take)),
-      hasNextPage,
-      hasPreviousPage: page > 1,
-    },
-    facets: {
-      sizes: sizeOptions
-        .map(({ size }) => size)
-        .filter((size): size is string => Boolean(size)),
-      colors: colorOptions
-        .map(({ color }) => color)
-        .filter((color): color is string => Boolean(color)),
-      priceRange: {
-        min: priceRange._min.price ?? null,
-        max: priceRange._max.price ?? null,
-      },
-    },
-  };
-}
+  ["product-detail"],
+  { tags: ["products"] },
+);
 
 function buildProductWhere(params: ProductListParams): Prisma.ProductWhereInput {
   const and: Prisma.ProductWhereInput[] = [{ status: ProductStatus.PUBLISHED }];
@@ -276,19 +304,7 @@ function mapProductListItem(product: Prisma.ProductGetPayload<{
 }
 
 export async function getProductBySlug(slug: string) {
-  return prisma.product.findUnique({
-    where: { slug },
-    include: {
-      variants: {
-        orderBy: { price: "asc" },
-      },
-      reviews: {
-        where: { status: ReviewStatus.APPROVED },
-        orderBy: { createdAt: "desc" },
-      },
-      linkTrackers: true,
-    },
-  });
+  return cachedProductBySlug(slug);
 }
 
 export async function createPendingReview(input: {
@@ -314,26 +330,33 @@ export async function createPendingReview(input: {
   });
 }
 
-export async function getProductForCart(productId: string) {
-  return prisma.product.findUnique({
-    where: { id: productId },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      price: true,
-      thumbnailUrl: true,
-      variants: {
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          stock: true,
-          size: true,
-          color: true,
-          imageUrl: true,
+const cachedProductForCart = unstable_cache(
+  async (productId: string) =>
+    prisma.product.findUnique({
+      where: { id: productId },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        price: true,
+        thumbnailUrl: true,
+        variants: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            stock: true,
+            size: true,
+            color: true,
+            imageUrl: true,
+          },
         },
       },
-    },
-  });
+    }),
+  ["product-cart"],
+  { tags: ["products"] },
+);
+
+export async function getProductForCart(productId: string) {
+  return cachedProductForCart(productId);
 }

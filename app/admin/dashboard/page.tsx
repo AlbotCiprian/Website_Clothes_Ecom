@@ -98,7 +98,7 @@ export default async function AdminDashboardPage() {
             </div>
           </div>
 
-  <div className="rounded-2xl border border-neutral-200 bg-white p-6">
+          <div className="rounded-2xl border border-neutral-200 bg-white p-6">
             <h2 className="text-sm font-semibold text-neutral-900">30 day snapshot</h2>
             <dl className="mt-4 space-y-3 text-sm text-neutral-600">
               <div className="flex items-center justify-between">
@@ -133,7 +133,7 @@ export default async function AdminDashboardPage() {
       <div className="rounded-3xl border border-dashed border-neutral-300 bg-neutral-50 p-8 text-sm text-neutral-500">
         <p>
           Draft orders represent checkouts captured by the demo flow. Once live payments are wired,
-          conversion will represent paid orders / visits.
+          conversion will represent paid orders divided by visits.
         </p>
       </div>
     </section>
@@ -165,5 +165,6 @@ function buildSparklinePath(
 
 function formatDay(date: string) {
   const [year, month, day] = date.split("-");
+  void year;
   return `${month}/${day}`;
 }

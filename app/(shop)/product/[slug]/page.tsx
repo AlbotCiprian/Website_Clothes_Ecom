@@ -12,6 +12,8 @@ import type { PurchaseVariant } from "@/components/ProductPurchasePanel";
 import type { GalleryImage } from "@/components/ProductGallery";
 import { buildBreadcrumbJsonLd, buildProductJsonLd } from "@/lib/seo";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 type ProductPageProps = {
   params: { slug: string };
 };
@@ -23,13 +25,24 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     return { title: "Product not found · Claroche" };
   }
 
+  const canonical = `/product/${product.slug}`;
+
   return {
     title: `${product.title} · Claroche`,
     description: product.description ?? "Claroche elevated activewear crafted for movement.",
+    alternates: {
+      canonical,
+    },
     openGraph: {
       title: product.title,
       description: product.description ?? "Claroche elevated activewear crafted for movement.",
       images: product.thumbnailUrl ? [{ url: product.thumbnailUrl }] : undefined,
+      url: `${siteUrl}${canonical}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description: product.description ?? "Claroche elevated activewear crafted for movement.",
     },
   };
 }
@@ -41,7 +54,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const variants: PurchaseVariant[] = product.variants.map((variant) => ({
     id: variant.id,
     name: variant.name,

@@ -3,13 +3,26 @@ import type { Metadata } from "next";
 import AddFromLinkHandler, { type LinkAddPayload } from "@/components/AddFromLinkHandler";
 import ProductFilters from "@/components/ProductFilters";
 import ProductGrid from "@/components/ProductGrid";
+import { t } from "@/lib/i18n";
 import { getProductForCart, getProductList, parseProductListParams } from "@/lib/products";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   title: "Claroche Shop",
   description:
     "Explore the Claroche ready-to-move collection. Filter by size, color, or price and discover elevated activewear essentials.",
+  alternates: {
+    canonical: "/shop",
+  },
   openGraph: {
+    title: "Claroche Shop",
+    description:
+      "Discover Claroche activewear. Filter by fit, color, or price and shop the latest arrivals.",
+    url: `${siteUrl}/shop`,
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "Claroche Shop",
     description:
       "Discover Claroche activewear. Filter by fit, color, or price and shop the latest arrivals.",
@@ -82,7 +95,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       <header className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
-            Shop Claroche
+            {t("nav.shop")}
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-neutral-600">
             Browse minimalist silhouettes engineered for movement. Adjust filters to discover the

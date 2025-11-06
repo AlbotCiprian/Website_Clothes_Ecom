@@ -1,4 +1,5 @@
 import { Prisma, ProductStatus } from "@prisma/client";
+import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 
@@ -220,4 +221,78 @@ export async function updateAdminProduct(id: string, input: AdminProductInput) {
 
 export async function deleteAdminProduct(id: string) {
   await prisma.product.delete({ where: { id } });
+}
+
+const variantPayloadSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().trim().min(1),
+  price: z.union([z.number(), z.string()]).refine((value) => {
+    if (typeof value === "number") return value >= 0;
+    return /^\d+(\.\d{1,2})?$/.test(value.trim());
+  }, "Invalid price"),
+  stock: z.union([z.number(), z.string()]).default(0),
+  size: z.string().optional(),
+  color: z.string().optional(),
+  sku: z.string().optional(),
+  imageUrl: z.string().url().optional(),
+  deleted: z.boolean().optional(),
+});
+
+const productPayloadSchema = z.object({
+  title: z.string().trim().min(1),
+  slug: z.string().trim().min(1),
+  description: z.string().trim().optional(),
+  price: z.union([z.number(), z.string()]).refine((value) => {
+    if (typeof value === "number") return value >= 0;
+    return /^\d+(\.\d{1,2})?$/.test(value.trim());
+  }, "Invalid price"),
+  currency: z.string().trim().optional(),
+  thumbnailUrl: z.string().url().optional(),
+  status: z.enum(["PUBLISHED", "DRAFT", "ARCHIVED"]).default("PUBLISHED"),
+  variants: z.array(variantPayloadSchema).default([]),
+});
+
+export function parseAdminProductPayload(payload: unknown): AdminProductInput {
+  const parsed = productPayloadSchema.parse(payload);
+
+  return {
+    title: parsed.title,
+    slug: parsed.slug,
+    description: parsed.description ?? null,
+    price: normalisePrice(parsed.price),
+    currency: parsed.currency ? parsed.currency.toUpperCase() : "USD",
+    thumbnailUrl: parsed.thumbnailUrl ?? null,
+    status: parsed.status,
+    variants: parsed.variants.map((variant) => {
+      const stockValue =
+        typeof variant.stock === "number"
+          ? variant.stock
+          : Number.parseInt(variant.stock, 10);
+
+      return {
+        id: variant.id,
+        name: variant.name,
+        price: normalisePrice(variant.price),
+        stock: Number.isNaN(stockValue) ? 0 : stockValue,
+        size: variant.size?.trim() || null,
+        color: variant.color?.trim() || null,
+        sku: variant.sku?.trim() || null,
+        imageUrl: variant.imageUrl ?? null,
+        deleted: variant.deleted ?? false,
+      };
+    }),
+  };
+}
+
+function normalisePrice(value: number | string) {
+  if (typeof value === "number") {
+    return Math.round(value * 100);
+  }
+
+  const normalised = value.replace(/[^0-9.]/g, "");
+  const parsed = Number.parseFloat(normalised);
+  if (Number.isNaN(parsed)) {
+    return 0;
+  }
+  return Math.round(parsed * 100);
 }
