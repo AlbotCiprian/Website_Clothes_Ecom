@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
+import AddFromLinkHandler, { type LinkAddPayload } from "@/components/AddFromLinkHandler";
 import ProductFilters from "@/components/ProductFilters";
 import ProductGrid from "@/components/ProductGrid";
-import { getProductList, parseProductListParams } from "@/lib/products";
+import { getProductForCart, getProductList, parseProductListParams } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Claroche Shop",
@@ -49,8 +50,35 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
   const initialQuery = buildQueryString(urlParams, ["page"]);
 
+  const addProductId = urlParams.get("add");
+  const addVariantId = urlParams.get("variant") ?? undefined;
+  const redirectParam = urlParams.get("redirect");
+  const refCode = urlParams.get("ref");
+
+  let autoAddPayload: LinkAddPayload | null = null;
+
+  if (addProductId) {
+    const product = await getProductForCart(addProductId);
+    if (product) {
+      const variant =
+        product.variants.find((item) => item.id === addVariantId) ?? product.variants[0];
+
+      if (variant) {
+        autoAddPayload = {
+          productId: product.id,
+          productTitle: product.title,
+          productSlug: product.slug,
+          trackerCode: refCode,
+          variant,
+          redirect: redirectParam,
+        };
+      }
+    }
+  }
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+      <AddFromLinkHandler payload={autoAddPayload} />
       <header className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">

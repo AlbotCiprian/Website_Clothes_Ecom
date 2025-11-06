@@ -40,6 +40,11 @@ The seed script provisions:
 - Admin account `admin@claroche.shop` with password `Admin#12345`
 - 12 demo products, each with variants, reviews (approved and pending), and link trackers
 
+### Admin Access
+- Visit `/admin/login` and sign in with the seeded admin credentials.
+- The admin shell exposes a dashboard (7/30 day KPIs), product CRUD (with variant management), review moderation, and a campaign link generator with hit analytics.
+- All admin routes require an authenticated session with the `admin` role; the UI signs out via NextAuth.
+
 ### PostgreSQL Ready
 - Point `DATABASE_URL` at your Postgres instance.
 - Update `provider` inside `prisma/schema.prisma` to `"postgresql"`.

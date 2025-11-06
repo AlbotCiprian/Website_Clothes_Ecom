@@ -23,6 +23,7 @@ type AddToCartButtonProps = {
   size?: "sm" | "default" | "lg" | "icon";
   buttonVariant?: "default" | "secondary" | "outline" | "ghost";
   imageUrl?: string | null;
+  trackerCode?: string;
 };
 
 type Status = "idle" | "added" | "error";
@@ -37,6 +38,7 @@ export default function AddToCartButton({
   size = "lg",
   buttonVariant = "default",
   imageUrl,
+  trackerCode,
 }: AddToCartButtonProps) {
   const [isPending, setIsPending] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
@@ -75,13 +77,15 @@ export default function AddToCartButton({
         id: `${productId}-${variant.id}`,
         productId,
         variantId: variant.id,
-        name: `${productTitle} · ${variant.name}`,
+        name: `${productTitle} - ${variant.name}`,
         price: variant.price,
         quantity,
         imageUrl,
         size: variant.size,
         color: variant.color,
       });
+
+      trackAddToCart(productId, variant.id, trackerCode);
 
       setStatus("added");
       if (timeoutRef.current) {
@@ -120,4 +124,28 @@ export default function AddToCartButton({
       </span>
     </div>
   );
+}
+
+function trackAddToCart(productId: string, variantId?: string, trackerCode?: string) {
+  try {
+    const storedCode =
+      typeof window !== "undefined"
+        ? window.sessionStorage.getItem("claroche:lastRef") ?? undefined
+        : undefined;
+
+    const payload = {
+      productId,
+      variantId,
+      trackerCode: trackerCode ?? storedCode ?? undefined,
+    };
+
+    void fetch("/api/events/add-to-cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  } catch (error) {
+    console.warn("Unable to track add to cart event", error);
+  }
 }

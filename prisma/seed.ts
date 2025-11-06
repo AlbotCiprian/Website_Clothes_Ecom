@@ -3,6 +3,7 @@ import { readFile } from "fs/promises";
 
 import bcrypt from "bcryptjs";
 import {
+  LinkTarget,
   PrismaClient,
   ProductStatus,
   ReviewStatus,
@@ -73,6 +74,7 @@ function resolveProductStatus(
 
 async function resetDatabase() {
   await prisma.$transaction([
+    prisma.addToCartEvent.deleteMany(),
     prisma.hit.deleteMany(),
     prisma.linkTracker.deleteMany(),
     prisma.review.deleteMany(),
@@ -144,11 +146,23 @@ async function seedProducts() {
             label: tracker.label,
             url: tracker.url,
             medium: tracker.medium,
+            code: createLinkCode(),
+            target: LinkTarget.PDP,
           })),
         },
       },
     });
   }
+}
+
+function createLinkCode(length = 6) {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "";
+  for (let index = 0; index < length; index += 1) {
+    const randomIndex = Math.floor(Math.random() * alphabet.length);
+    code += alphabet[randomIndex];
+  }
+  return code;
 }
 
 async function main() {

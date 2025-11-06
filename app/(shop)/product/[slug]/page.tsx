@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import AddFromLinkHandler from "@/components/AddFromLinkHandler";
 import ProductDetail from "@/components/ProductDetail";
 import UspBadges from "@/components/UspBadges";
 import Faq from "@/components/Faq";
@@ -129,6 +130,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+        <AddFromLinkHandler />
         <ProductDetail
           productId={product.id}
           productTitle={product.title}

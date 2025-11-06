@@ -313,3 +313,27 @@ export async function createPendingReview(input: {
     },
   });
 }
+
+export async function getProductForCart(productId: string) {
+  return prisma.product.findUnique({
+    where: { id: productId },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      price: true,
+      thumbnailUrl: true,
+      variants: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          stock: true,
+          size: true,
+          color: true,
+          imageUrl: true,
+        },
+      },
+    },
+  });
+}
