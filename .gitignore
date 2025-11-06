@@ -1,0 +1,31 @@
+node_modules
+.next
+/out
+/dist
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Image/font binaries disallowed in repo
+public/images/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.woff
+*.woff2
+*.ttf
+*.otf
