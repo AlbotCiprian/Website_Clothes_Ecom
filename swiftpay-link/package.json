@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
@@ -18,8 +20,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "next": "^15.5.6",
-    "react": "19.0.0-rc-65a56d0e-20241020",
-    "react-dom": "19.0.0-rc-65a56d0e-20241020",
+    "react": "19.0.0-rc-de68d2f4-20241204",
+    "react-dom": "19.0.0-rc-de68d2f4-20241204",
     "tailwind-merge": "^2.4.0",
     "zod": "^3.23.8"
   },
