@@ -1,0 +1,43 @@
+--- push to git
+
+git add -A 
+
+git commit -m "V5" 
+
+git pull --rebase origin main
+
+git push -u origin main
+
+
+-------------- run test environement!
+
+cd C:\Users\user\Desktop\Projects\Website_Clothes_Ecom
+
+npm run dev
+
+
+cd swiftpay-link
+npm install
+npm run db:migrate -- --name init   # create initial migration for its Postgres schema (set DATABASE_URL first)
+npm run db:seed                     # seed demo data (if desired)
+npm run dev                         # dev server on 3000 (or set PORT)
+
+
+
+
+npx prisma migrate dev          # applies migrations
+npx prisma db seed              # seeds admin, sellers, products, links
+
+
+
+Demo link to preload cart: http://localhost:3000/c/DEMO123
+Checkout flow: http://localhost:3000/checkout
+Mock payment: redirected to /checkout/mock-paym
+
+2) Open the UI
+Storefront/catalog: http://localhost:3000/shop
+Admin panel: http://localhost:3000/admin/login
+Admin credentials (from seed):
+
+Email: founder@claroche.shop
+Password: Claroche#2025!

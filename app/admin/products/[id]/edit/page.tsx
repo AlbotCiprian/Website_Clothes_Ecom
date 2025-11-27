@@ -10,13 +10,14 @@ import {
 } from "@/lib/admin/products";
 
 type EditProductPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function AdminEditProductPage({ params }: EditProductPageProps) {
   await requireAdminSession();
 
-  const product = await getAdminProduct(params.id);
+  const { id } = await params;
+  const product = await getAdminProduct(id);
   if (!product) {
     notFound();
   }
@@ -31,9 +32,9 @@ export default async function AdminEditProductPage({ params }: EditProductPagePr
     }
 
     const input = parseAdminProductPayload(JSON.parse(payload));
-    await updateAdminProduct(params.id, input);
+    await updateAdminProduct(id, input);
     revalidatePath("/admin/products");
-    revalidatePath(`/admin/products/${params.id}/edit`);
+    revalidatePath(`/admin/products/${id}/edit`);
     revalidateTag("products");
   }
 

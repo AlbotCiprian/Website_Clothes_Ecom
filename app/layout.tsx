@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/images/logo_claroche.png",
+  },
   openGraph: {
     title: "Claroche | Elevated Activewear",
     description:

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 type ProductsPageProps = {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 const sortOptions: Array<{ label: string; value: ProductSort }> = [
@@ -27,9 +27,10 @@ const sortOptions: Array<{ label: string; value: ProductSort }> = [
   { label: "Status", value: "status" },
 ];
 
-export default async function AdminProductsPage({ searchParams }: ProductsPageProps) {
+export default async function AdminProductsPage(props: ProductsPageProps) {
   await requireAdminSession();
 
+  const searchParams = await props.searchParams;
   const filters = toFilters(searchParams);
   const list = await getAdminProductList(filters);
 

@@ -33,9 +33,11 @@ const checkoutSchema = z.object({
 export default function CheckoutForm() {
   const router = useRouter();
   const [cart, setCart] = useState<CartSnapshot>(() => readCart());
+  const [mounted, setMounted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
 
   useEffect(() => {
     setCart(readCart());
@@ -43,8 +45,13 @@ export default function CheckoutForm() {
     return unsubscribe;
   }, []);
 
-  const totals = cartTotals(cart);
-  const cartEmpty = cart.items.length === 0;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const viewCart = mounted ? cart : { items: [], updatedAt: 0 };
+  const totals = cartTotals(viewCart);
+  const cartEmpty = viewCart.items.length === 0;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -72,8 +79,13 @@ export default function CheckoutForm() {
       return;
     }
 
-    if (cartEmpty) {
+    if (cartEmpty || !mounted) {
       setStatusMessage("Your cart is empty. Add items before checking out.");
+      return;
+    }
+
+    if (!selectedPaymentMethod) {
+      setStatusMessage("Select a payment method to continue.");
       return;
     }
 
@@ -88,11 +100,18 @@ export default function CheckoutForm() {
           body: JSON.stringify({
             customer: parsed.data,
             cart,
+            paymentMethod: selectedPaymentMethod,
           }),
         });
 
+        const data = await response.json().catch(() => null);
+
         if (!response.ok) {
-          throw new Error(await response.text());
+          const message =
+            (data && typeof data.error === "string" && data.error) ||
+            "Demo checkout is unavailable right now. Please try again shortly.";
+          setStatusMessage(message);
+          return;
         }
 
         clearCart();
@@ -178,6 +197,60 @@ export default function CheckoutForm() {
           </p>
         ) : null}
 
+        <div className="space-y-4 rounded-3xl border border-neutral-200 bg-white p-5 shadow-sm">
+          <div>
+            <h2 className="text-lg font-semibold text-neutral-900">Metode de plată</h2>
+            <p className="text-sm text-neutral-600">Alege metoda preferată pentru plată.</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { key: "MIA", title: "MIA", subtitle: "Achită instant" },
+              { key: "CARD", title: "Card bancar", subtitle: "Online pe site" },
+              { key: "CREDIT", title: "Credit", subtitle: "de la 0%" },
+              { key: "CASH", title: "Numerar", subtitle: "la primire" },
+              { key: "BANK_TRANSFER", title: "Transfer Bancar", subtitle: "persoană juridică" },
+            ].map((method) => (
+              <button
+                type="button"
+                key={method.key}
+                onClick={() => setSelectedPaymentMethod(method.key)}
+                className={cn(
+                  "flex items-start gap-3 rounded-2xl border px-4 py-3 text-left shadow-sm transition hover:border-neutral-300 hover:shadow",
+                  selectedPaymentMethod === method.key
+                    ? "border-neutral-900 bg-neutral-50"
+                    : "border-neutral-200 bg-white",
+                )}
+              >
+                <span className="mt-1 h-3 w-3 rounded-full bg-neutral-900" aria-hidden />
+                <span>
+                  <p className="text-sm font-semibold text-neutral-900">{method.title}</p>
+                  <p className="text-xs text-neutral-600">{method.subtitle}</p>
+                </span>
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs font-semibold text-neutral-800">
+            {["Visa", "Mastercard", "Maestro", "GPay", "Apple Pay"].map((logo) => (
+              <span
+                key={logo}
+                className="rounded-full bg-white px-3 py-1 shadow-sm ring-1 ring-neutral-200"
+              >
+                {logo}
+              </span>
+            ))}
+          </div>
+          <div className="flex items-start gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-900">
+            <span className="mt-1">🔒</span>
+            <ul className="space-y-1">
+              <li>✓ Claroche.md protejează datele cardului Dvs</li>
+              <li>✓ Toate datele sunt stocate doar în sistemul de plată de la maib</li>
+              <li>✓ Folosim tehnologii de criptare a datelor</li>
+              <li>✓ Securitatea Dvs. este prioritatea noastră #1</li>
+              <li>✓ maib folosește tehnologii avansate în domeniul securității bancare</li>
+            </ul>
+          </div>
+        </div>
+
         <label className="flex items-start gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-700">
           <input type="checkbox" name="accept" className="mt-1" />
           <span>
@@ -191,7 +264,11 @@ export default function CheckoutForm() {
           </p>
         ) : null}
 
-        <Button type="submit" disabled={isPending || cartEmpty} className="w-full">
+        <Button
+          type="submit"
+          disabled={isPending || cartEmpty || !mounted || !selectedPaymentMethod}
+          className="w-full"
+        >
           {isPending ? "Processing..." : "Place demo order"}
         </Button>
         {statusMessage ? (
@@ -203,12 +280,14 @@ export default function CheckoutForm() {
 
       <aside className="space-y-6 rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-neutral-900">Order summary</h2>
-        {cart.items.length === 0 ? (
+        {!mounted ? (
+          <p className="text-sm text-neutral-500">Loading cart...</p>
+        ) : viewCart.items.length === 0 ? (
           <p className="text-sm text-neutral-500">Your cart is empty. Add items to complete checkout.</p>
         ) : (
           <>
             <ul className="space-y-4">
-              {cart.items.map((item) => (
+              {viewCart.items.map((item) => (
                 <li key={`${item.productId}-${item.variantId}`} className="flex justify-between text-sm text-neutral-700">
                   <span className="max-w-[70%] truncate">{item.name}</span>
                   <span>{formatMoney(item.price * item.quantity)}</span>
@@ -304,6 +383,11 @@ function ShippingOption({
           <p className="text-xs text-neutral-500">{description}</p>
         </div>
       </div>
+      {error ? (
+        <p className="text-xs text-red-500" role="alert">
+          {error}
+        </p>
+      ) : null}
     </label>
   );
 }

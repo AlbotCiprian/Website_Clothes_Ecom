@@ -16,12 +16,13 @@ export const metadata: Metadata = {
 };
 
 type ReviewsPageProps = {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function AdminReviewsPage({ searchParams }: ReviewsPageProps) {
+export default async function AdminReviewsPage(props: ReviewsPageProps) {
   await requireAdminSession();
 
+  const searchParams = await props.searchParams;
   const filters = toFilters(searchParams);
   const reviews = await getAdminReviews(filters);
 

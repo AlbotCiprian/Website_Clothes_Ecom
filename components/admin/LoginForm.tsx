@@ -9,12 +9,20 @@ import { cn } from "@/lib/utils";
 
 type Status = "idle" | "loading" | "error";
 
-export default function LoginForm() {
+type LoginFormProps = {
+  defaultRedirect?: string;
+  helperText?: string;
+};
+
+export default function LoginForm({
+  defaultRedirect = "/admin/dashboard",
+  helperText,
+}: LoginFormProps) {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const callbackUrl = searchParams?.get("callbackUrl") ?? "/admin/dashboard";
+  const callbackUrl = searchParams?.get("callbackUrl") ?? defaultRedirect;
 
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
@@ -88,10 +96,9 @@ export default function LoginForm() {
       <Button type="submit" className="w-full" disabled={status === "loading"}>
         {status === "loading" ? "Signing in..." : "Sign in"}
       </Button>
-      <p className="text-xs text-neutral-500">
-        Use the seeded credentials: <span className="font-medium text-neutral-900">admin@claroche.shop</span> /{" "}
-        <span className="font-medium text-neutral-900">Admin#12345</span>
-      </p>
+      {helperText ? (
+        <p className="text-xs text-neutral-500" dangerouslySetInnerHTML={{ __html: helperText }} />
+      ) : null}
     </form>
   );
 }

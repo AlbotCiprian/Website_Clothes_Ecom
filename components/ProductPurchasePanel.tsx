@@ -24,6 +24,7 @@ type ProductPurchasePanelProps = {
   selectedVariantId: string | null;
   onVariantChange: (variantId: string) => void;
   onVariantImageChange?: (variant: PurchaseVariant | undefined) => void;
+  redirect?: string;
 };
 
 export default function ProductPurchasePanel({
@@ -34,6 +35,7 @@ export default function ProductPurchasePanel({
   selectedVariantId,
   onVariantChange,
   onVariantImageChange,
+  redirect,
 }: ProductPurchasePanelProps) {
   const [quantity, setQuantity] = useState(1);
   const selectedVariant = useMemo(() => {
@@ -144,6 +146,7 @@ export default function ProductPurchasePanel({
         }
         imageUrl={selectedVariant?.imageUrl}
         quantity={quantity}
+        redirect={redirect}
       />
       <ul className="space-y-2 text-xs text-neutral-500">
         <li>✓ Free returns within 30 days</li>

@@ -7,134 +7,140 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum UserRole {
-  admin
-  customer
-}
-
-enum ProductStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
-}
-
-enum ReviewStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
-enum OrderStatus {
-  PENDING
-  PAID
-  FULFILLED
-  CANCELLED
-  REFUNDED
-}
-
-enum LinkTarget {
-  PDP
-  ADD_TO_CART
-}
-
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
+  id        String   @id @default(cuid())
+  email     String   @unique
   password  String
-  role      UserRole  @default(admin)
+  role      String   @default("admin")
   name      String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  orders  Order[]
-  reviews Review[]
-  accounts Account[]
-  sessions Session[]
+  orders         Order[]
+  reviews        Review[]
+  accounts       Account[]
+  sessions       Session[]
+  authenticators Authenticator[]
+  sellerMemberships SellerUser[]
+}
+
+model Seller {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  status       String   @default("ACTIVE")
+  description  String?
+  supportEmail String?
+  website      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  products Product[]
+  members  SellerUser[]
+}
+
+model SellerUser {
+  id        String   @id @default(cuid())
+  role      String   @default("owner")
+  createdAt DateTime @default(now())
+
+  seller   Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  sellerId String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+
+  @@unique([sellerId, userId])
 }
 
 model Product {
-  id           String         @id @default(cuid())
+  id           String   @id @default(cuid())
   title        String
-  slug         String         @unique
+  slug         String   @unique
   description  String?
   price        Int
-  currency     String         @default("USD")
+  currency     String   @default("USD")
   thumbnailUrl String?
-  status       ProductStatus  @default(PUBLISHED)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  status       String   @default("PUBLISHED")
+  sellerId     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  variants      Variant[]
-  reviews       Review[]
-  linkTrackers  LinkTracker[]
-  orderItems    OrderItem[]
+  seller         Seller   @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  variants        Variant[]
+  reviews         Review[]
+  linkTrackers    LinkTracker[]
+  orderItems      OrderItem[]
+  addToCartEvents AddToCartEvent[]
+  trackingEvents  TrackingEvent[]
 
   @@index([status])
+  @@index([sellerId])
 }
 
 model Variant {
-  id         String    @id @default(cuid())
-  name       String
-  sku        String?   @unique
-  price      Int
-  stock      Int       @default(0)
-  imageUrl   String?
-  size       String?
-  color      String?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-
-  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId String
-
-  orderItems OrderItem[]
-  linkTrackers LinkTracker[]
-}
-
-model Review {
-  id          String        @id @default(cuid())
-  rating      Int
-  title       String?
-  body        String
-  status      ReviewStatus  @default(PENDING)
-  authorName  String
-  authorEmail String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  sku       String?  @unique
+  price     Int
+  stock     Int      @default(0)
+  imageUrl  String?
+  size      String?
+  color     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
-  user   User?  @relation(fields: [userId], references: [id])
+  orderItems      OrderItem[]
+  linkTrackers    LinkTracker[]
+  addToCartEvents AddToCartEvent[]
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  rating      Int
+  title       String?
+  body        String
+  status      String   @default("PENDING")
+  authorName  String
+  authorEmail String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+
+  user   User?   @relation(fields: [userId], references: [id])
   userId String?
 
   @@index([status])
 }
 
 model Order {
-  id          String       @id @default(cuid())
-  orderNumber String       @unique
-  status      OrderStatus  @default(PENDING)
+  id          String   @id @default(cuid())
+  orderNumber String   @unique
+  status      String   @default("PENDING")
   total       Int
-  currency    String       @default("USD")
+  currency    String   @default("USD")
   notes       String?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  user   User?  @relation(fields: [userId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
   userId String?
 
   items OrderItem[]
 }
 
 model OrderItem {
-  id         String    @id @default(cuid())
-  quantity   Int       @default(1)
-  unitPrice  Int
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id        String   @id @default(cuid())
+  quantity  Int      @default(1)
+  unitPrice Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId String
 
   product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
@@ -145,15 +151,15 @@ model OrderItem {
 }
 
 model LinkTracker {
-  id          String    @id @default(cuid())
-  code        String    @unique
-  label       String
-  url         String
-  medium      String?
-  target      LinkTarget @default(PDP)
-  redirectTo  String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id         String   @id @default(cuid())
+  code       String   @unique
+  label      String
+  url        String
+  medium     String?
+  target     String   @default("PDP")
+  redirectTo String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
@@ -161,18 +167,20 @@ model LinkTracker {
   variant   Variant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
   variantId String?
 
-  hits Hit[]
+  hits            Hit[]
+  addToCartEvents AddToCartEvent[]
+  trackingEvents  TrackingEvent[]
 
   @@unique([productId, url])
   @@index([productId])
 }
 
 model Hit {
-  id        String      @id @default(cuid())
+  id        String   @id @default(cuid())
   ipAddress String?
   userAgent String?
   referer   String?
-  createdAt DateTime    @default(now())
+  createdAt DateTime @default(now())
 
   tracker   LinkTracker @relation(fields: [trackerId], references: [id], onDelete: Cascade)
   trackerId String
@@ -181,14 +189,14 @@ model Hit {
 }
 
 model AddToCartEvent {
-  id         String   @id @default(cuid())
-  productId  String
-  variantId  String?
-  trackerId  String?
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  productId String
+  variantId String?
+  trackerId String?
+  createdAt DateTime @default(now())
 
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  variant Variant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  product Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant Variant?     @relation(fields: [variantId], references: [id], onDelete: SetNull)
   tracker LinkTracker? @relation(fields: [trackerId], references: [id], onDelete: SetNull)
 
   @@index([createdAt])
@@ -196,34 +204,34 @@ model AddToCartEvent {
 }
 
 model TrackingEvent {
-  id         String   @id @default(cuid())
-  event      String
-  path       String
-  productId  String?
-  linkId     String?
-  ref        String?
-  userAgent  String?
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  event     String
+  path      String
+  productId String?
+  linkId    String?
+  ref       String?
+  userAgent String?
+  createdAt DateTime @default(now())
 
-  product  Product?     @relation(fields: [productId], references: [id], onDelete: SetNull)
-  link     LinkTracker? @relation(fields: [linkId], references: [id], onDelete: SetNull)
+  product Product?     @relation(fields: [productId], references: [id], onDelete: SetNull)
+  link    LinkTracker? @relation(fields: [linkId], references: [id], onDelete: SetNull)
 
   @@index([createdAt])
   @@index([event])
 }
 
 model Account {
-  id                String   @id @default(cuid())
+  id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?  @db.Text
-  access_token      String?  @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?  @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -249,7 +257,7 @@ model VerificationToken {
 }
 
 model Authenticator {
-  id         String  @id @default(cuid())
+  id         String   @id @default(cuid())
   userId     String
   provider   String
   identifier String

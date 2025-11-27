@@ -1,7 +1,23 @@
-import { Prisma, ProductStatus, ReviewStatus } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { unstable_cache } from "next/cache";
 
 import { prisma } from "./db";
+
+const FALLBACK_IMAGE = "/images/placeholder.svg";
+
+function safeUrl(url?: string | null) {
+  if (!url) {
+    return FALLBACK_IMAGE;
+  }
+
+  try {
+    new URL(url);
+    return url;
+  } catch (error) {
+    void error;
+    return FALLBACK_IMAGE;
+  }
+}
 
 export type SortOption = "featured" | "new" | "price-asc" | "price-desc";
 
@@ -123,7 +139,7 @@ const cachedProductList = unstable_cache(
             },
           },
           reviews: {
-            where: { status: ReviewStatus.APPROVED },
+            where: { status: "APPROVED" },
             select: { rating: true },
           },
         },
@@ -191,7 +207,7 @@ const cachedProductBySlug = unstable_cache(
           orderBy: { price: "asc" },
         },
         reviews: {
-          where: { status: ReviewStatus.APPROVED },
+          where: { status: "APPROVED" },
           orderBy: { createdAt: "desc" },
         },
         linkTrackers: true,
@@ -202,7 +218,7 @@ const cachedProductBySlug = unstable_cache(
 );
 
 function buildProductWhere(params: ProductListParams): Prisma.ProductWhereInput {
-  const and: Prisma.ProductWhereInput[] = [{ status: ProductStatus.PUBLISHED }];
+  const and: Prisma.ProductWhereInput[] = [{ status: "PUBLISHED" }];
 
   if (params.sizes?.length) {
     and.push({
@@ -267,7 +283,7 @@ function mapProductListItem(product: Prisma.ProductGetPayload<{
     };
     reviews: {
       where: {
-        status: ReviewStatus.APPROVED;
+        status: "APPROVED";
       };
       select: {
         rating: true;
@@ -286,7 +302,7 @@ function mapProductListItem(product: Prisma.ProductGetPayload<{
     slug: product.slug,
     title: product.title,
     description: product.description,
-    thumbnailUrl: product.thumbnailUrl,
+    thumbnailUrl: safeUrl(product.thumbnailUrl),
     price: product.price,
     minVariantPrice,
     maxVariantPrice,
@@ -304,7 +320,19 @@ function mapProductListItem(product: Prisma.ProductGetPayload<{
 }
 
 export async function getProductBySlug(slug: string) {
-  return cachedProductBySlug(slug);
+  const product = await cachedProductBySlug(slug);
+  if (!product) {
+    return null;
+  }
+
+  return {
+    ...product,
+    thumbnailUrl: safeUrl(product.thumbnailUrl),
+    variants: product.variants.map((variant) => ({
+      ...variant,
+      imageUrl: safeUrl(variant.imageUrl),
+    })),
+  };
 }
 
 export async function createPendingReview(input: {
@@ -320,7 +348,7 @@ export async function createPendingReview(input: {
       rating: input.rating,
       title: input.title,
       body: input.body,
-      status: ReviewStatus.PENDING,
+      status: "PENDING",
       authorName: input.authorName,
       authorEmail: input.authorEmail,
       product: {
@@ -358,5 +386,17 @@ const cachedProductForCart = unstable_cache(
 );
 
 export async function getProductForCart(productId: string) {
-  return cachedProductForCart(productId);
+  const product = await cachedProductForCart(productId);
+  if (!product) {
+    return null;
+  }
+
+  return {
+    ...product,
+    thumbnailUrl: safeUrl(product.thumbnailUrl),
+    variants: product.variants.map((variant) => ({
+      ...variant,
+      imageUrl: safeUrl(variant.imageUrl),
+    })),
+  };
 }

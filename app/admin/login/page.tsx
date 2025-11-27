@@ -27,7 +27,9 @@ export default async function AdminLoginPage() {
           Use your Claroche credentials to access the control room.
         </p>
       </div>
-      <LoginForm />
+      <LoginForm
+        helperText='Use the admin credentials:<br/><span class="font-medium text-neutral-900">founder@claroche.shop</span> / <span class="font-medium text-neutral-900">Claroche#2025!</span><br/><span class="text-neutral-500">Update `.env` variables `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` before reseeding to change them.</span>'
+      />
     </section>
   );
 }

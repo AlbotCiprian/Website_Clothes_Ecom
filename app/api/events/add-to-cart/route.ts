@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { recordAddToCartEvent } from "@/lib/links";
+import { prisma } from "@/lib/db";
 
 export async function POST(request: Request) {
   try {
@@ -14,6 +15,15 @@ export async function POST(request: Request) {
 
     if (!productId) {
       return NextResponse.json({ error: "Missing productId" }, { status: 400 });
+    }
+
+    // ensure product exists to avoid FK errors
+    const productExists = await prisma.product.findUnique({
+      where: { id: productId },
+      select: { id: true },
+    });
+    if (!productExists) {
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
     await recordAddToCartEvent({

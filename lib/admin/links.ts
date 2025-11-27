@@ -1,6 +1,8 @@
-import { LinkTarget, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
+
+type LinkTargetValue = "PDP" | "ADD_TO_CART";
 
 export interface LinkFilters {
   search?: string;
@@ -13,7 +15,7 @@ export interface AdminLinkListItem {
   code: string;
   label: string;
   medium?: string | null;
-  target: LinkTarget;
+  target: LinkTargetValue;
   url: string;
   createdAt: Date;
   productTitle: string;
@@ -35,7 +37,7 @@ export interface CreateLinkInput {
   variantId?: string;
   label: string;
   medium?: string;
-  target: LinkTarget;
+  target: LinkTargetValue;
   redirectTo?: string | null;
 }
 
@@ -178,12 +180,12 @@ function buildLinkUrl({
   productId: string;
   productSlug: string;
   variantId?: string;
-  target: LinkTarget;
+  target: LinkTargetValue;
   redirect?: string;
 }) {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-  if (target === LinkTarget.ADD_TO_CART) {
+  if (target === "ADD_TO_CART") {
     const params = new URLSearchParams({
       add: productId,
       ref: code,

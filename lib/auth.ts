@@ -6,6 +6,7 @@ import Credentials from "next-auth/providers/credentials";
 import { redirect } from "next/navigation";
 
 import { prisma } from "./db";
+import type { SellerSummary } from "@/types/auth";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -51,7 +52,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.role = (user as { role?: string | null }).role ?? token.role;
       } else if (!token.role && token.sub) {
@@ -65,6 +66,28 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
+      const userId = (user as { id?: string })?.id ?? token.sub;
+      if (userId && (user || !token.sellers)) {
+        const memberships = await getSellerMemberships(userId);
+        token.sellers = memberships;
+
+        if (!token.activeSellerId && memberships.length) {
+          token.activeSellerId = memberships[0].id;
+        }
+      }
+
+      if (
+        trigger === "update" &&
+        session &&
+        "activeSellerId" in session &&
+        typeof (session as { activeSellerId?: unknown }).activeSellerId === "string"
+      ) {
+        const requested = (session as { activeSellerId?: string }).activeSellerId;
+        if (requested && token.sellers?.some((seller) => seller.id === requested)) {
+          token.activeSellerId = requested;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
@@ -73,6 +96,10 @@ export const authOptions: NextAuthOptions = {
           ...session.user,
           id: token.sub,
           role: token.role,
+          sellers: token.sellers ?? [],
+          activeSellerId:
+            token.activeSellerId ??
+            (token.sellers && token.sellers.length > 0 ? token.sellers[0].id : null),
         };
       }
 
@@ -94,6 +121,10 @@ export function isAdmin(session: Session | null | undefined) {
   return Boolean(session?.user && session.user.role === "admin");
 }
 
+export function isSeller(session: Session | null | undefined) {
+  return Boolean(session?.user && session.user.role === "seller");
+}
+
 export async function requireAdminSession(): Promise<Session> {
   const session = await getServerAuthSession();
 
@@ -102,4 +133,58 @@ export async function requireAdminSession(): Promise<Session> {
   }
 
   return session;
+}
+
+export async function requireSellerSession(): Promise<{
+  session: Session;
+  seller: SellerSummary;
+}> {
+  const session = await getServerAuthSession();
+
+  if (!session?.user) {
+    redirect("/seller/login");
+  }
+
+  if (!isSeller(session)) {
+    redirect("/seller/login");
+  }
+
+  const sellers = session.user.sellers ?? [];
+  const activeSellerId = session.user.activeSellerId ?? sellers[0]?.id;
+  const seller =
+    sellers.find((item) => item.id === activeSellerId) ??
+    (sellers.length ? sellers[0] : null);
+
+  if (!seller) {
+    redirect("/seller/apply?state=missing-seller");
+  }
+
+  return { session, seller };
+}
+
+async function getSellerMemberships(userId: string): Promise<SellerSummary[]> {
+  const memberships = await prisma.sellerUser.findMany({
+    where: { userId },
+    select: {
+      role: true,
+      seller: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          status: true,
+        },
+      },
+    },
+  });
+
+  return memberships
+    .filter((membership) => membership.seller)
+    .map((membership) => ({
+      id: membership.seller!.id,
+      name: membership.seller!.name,
+      slug: membership.seller!.slug,
+      status: membership.seller!.status,
+      role: membership.role,
+    }));
 }

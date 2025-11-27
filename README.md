@@ -1,61 +1,19 @@
-## Claroche
+# swiftpay-link (Claroche)
 
-Claroche is an activewear storefront built with Next.js 15, TypeScript, Tailwind CSS, and shadcn/ui. This update wires in Prisma for data modelling plus NextAuth credentials-based authentication, with SQLite as the default database and a ready-to-switch PostgreSQL setup.
+Next.js 15 App Router storefront + checkout by link. Stack: TypeScript, Tailwind, shadcn-ui, Prisma, Postgres.
 
-### Stack
-- Next.js 15 (App Router)
-- TypeScript (strict mode)
-- Tailwind CSS + shadcn/ui (Radix UI primitives)
-- Prisma ORM (`prisma/schema.prisma`)
-- NextAuth Credentials Provider
-- SQLite by default / PostgreSQL when `DATABASE_URL` points to Postgres
+## Getting Started
 
-### Folder Structure
-- `app/` - layouts, pages, and the auth route handler (`app/api/auth/[...nextauth]`)
-- `components/` - shared UI components
-- `lib/` - project utilities plus `db.ts` (Prisma client) and `auth.ts` (NextAuth config)
-- `prisma/` - `schema.prisma`, TypeScript seed script, and catalog data (`data/products.seed.json`)
-- `public/` - static assets (favicon)
-- Config files: `next.config.ts`, `tailwind.config.ts`, `postcss.config.js`, `tsconfig.json`
+```bash
+npm install
+npm run dev
+```
 
-### Quick Start
-1. Copy `.env.example` to `.env` and adjust values if needed.
-2. Install dependencies: `npm install`
-3. Generate Prisma Client: `npm run prisma:generate`
-4. Apply database migrations (SQLite by default): `npm run prisma:migrate`
-5. Seed the database with the admin user and demo catalog: `npm run prisma:seed`
-6. Start the dev server: `npm run dev`
-7. Visit `http://localhost:3000`
+## Deployment (Vercel)
 
-### Available Scripts
-- `npm run dev` - start the development server
-- `npm run build` - build for production
-- `npm run start` - run the production server
-- `npm run lint` - run ESLint checks
-- `npm run prisma:generate` - generate Prisma Client
-- `npm run prisma:migrate` - run development migrations
-- `npm run prisma:seed` - execute the Prisma seed script
-
-The seed script provisions:
-- Admin account `admin@claroche.shop` with password `Admin#12345`
-- 12 demo products, each with variants, reviews (approved and pending), and link trackers
-
-### Admin Access
-- Visit `/admin/login` and sign in with the seeded admin credentials.
-- The admin shell exposes a dashboard (7/30 day KPIs), product CRUD (with variant management), review moderation, and a campaign link generator with hit analytics.
-- All admin routes require an authenticated session with the `admin` role; the UI signs out via NextAuth.
-
-### Contributing & Tooling
-- Run `npm run lint` and `npm run build` locally before submitting changes.
-- Use `npm run format` or rely on the pre-commit hooks (Husky + lint-staged) to auto-format staged files with Prettier and ESLint.
-- CI validates pull requests via `.github/workflows/ci.yml`, ensuring install, lint, and build succeed.
-- All text files standardise on LF endings via `.gitattributes`; avoid committing generated artefacts or binaries.
-
-### PostgreSQL Ready
-- Point `DATABASE_URL` at your Postgres instance.
-- Update `provider` inside `prisma/schema.prisma` to `"postgresql"`.
-- Re-run `npm run prisma:migrate` to apply migrations.
-
-### Media Policy
-- Only remote image URLs (Unsplash / Cloudinary) are used.
-- The repo should not contain binary assets (png/jpg/webp/ico/woff2); refer to `.gitignore` for details.
+1. Set Vercel env vars  
+   - `DATABASE_URL` (Postgres connection string)  
+   - `APP_URL` (e.g. https://your-app.vercel.app)
+2. Vercel will run `npm install` (triggers `prisma generate` via `postinstall`) then `npm run build`.
+3. Apply production migrations before/after first deploy: `npm run db:deploy` against the production database.
+4. Connect the repo to Vercel and deploy. No extra config needed beyond `vercel.json`.

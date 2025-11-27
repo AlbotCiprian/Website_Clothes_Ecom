@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -29,7 +30,6 @@ type ProductState = {
 };
 
 type ProductFormProps = {
-  action: (formData: FormData) => void;
   submitLabel: string;
   initialProduct?: ProductState;
 };
@@ -44,7 +44,8 @@ const defaultVariant: VariantState = {
   imageUrl: "",
 };
 
-export default function ProductForm({ action, submitLabel, initialProduct }: ProductFormProps) {
+export default function ProductForm({ submitLabel, initialProduct }: ProductFormProps) {
+  const router = useRouter();
   const [state, setState] = useState<ProductState>(
     initialProduct ?? {
       title: "",
@@ -57,6 +58,8 @@ export default function ProductForm({ action, submitLabel, initialProduct }: Pro
       variants: [{ ...defaultVariant }],
     },
   );
+  const [isSubmitting, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
 
   const payload = useMemo(() => JSON.stringify(state), [state]);
 
@@ -91,8 +94,32 @@ export default function ProductForm({ action, submitLabel, initialProduct }: Pro
     }));
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError(null);
+    startTransition(async () => {
+      try {
+        const response = await fetch("/api/admin/products", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ payload }),
+        });
+        if (!response.ok) {
+          const data = await response.json().catch(() => null);
+          setError(data?.error ?? "Unable to create product");
+          return;
+        }
+        const data = await response.json();
+        router.push(`/admin/products/${data.id}/edit`);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to create product");
+      }
+    });
+  };
+
   return (
-    <form action={action} className="space-y-8">
+    <form className="space-y-8" onSubmit={handleSubmit}>
       <input type="hidden" name="payload" value={payload} />
       <section className="space-y-5 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-neutral-900">Product details</h2>
@@ -251,8 +278,12 @@ export default function ProductForm({ action, submitLabel, initialProduct }: Pro
         </div>
       </section>
 
+      {error ? <p className="text-sm text-red-600">{error}</p> : null}
+
       <div className="flex justify-end">
-        <Button type="submit">{submitLabel}</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {submitLabel}
+        </Button>
       </div>
     </form>
   );

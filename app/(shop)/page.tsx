@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 import AddFromLinkHandler, { type LinkAddPayload } from "@/components/AddFromLinkHandler";
-import ProductFilters from "@/components/ProductFilters";
-import ProductGrid from "@/components/ProductGrid";
-import { t } from "@/lib/i18n";
-import { getProductForCart, getProductList, parseProductListParams } from "@/lib/products";
+import HeroSection from "@/components/home/HeroSection";
+import ProductCarousel from "@/components/home/ProductCarousel";
+import type { HomeProduct } from "@/components/home/ProductTile";
+import { getProductForCart, getProductList } from "@/lib/products";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -33,40 +33,14 @@ type ShopPageProps = {
   searchParams?: Record<string, string | string[] | undefined>;
 };
 
-function toURLSearchParams(input: ShopPageProps["searchParams"]) {
-  const params = new URLSearchParams();
-  if (!input) return params;
-
-  for (const [key, value] of Object.entries(input)) {
-    if (Array.isArray(value)) {
-      value.filter(Boolean).forEach((entry) => params.append(key, entry));
-    } else if (value) {
-      params.append(key, value);
-    }
-  }
-
-  return params;
-}
-
-function buildQueryString(params: URLSearchParams, exclusions: string[] = []) {
-  const copy = new URLSearchParams(params.toString());
-  for (const exclusion of exclusions) {
-    copy.delete(exclusion);
-  }
-  return copy.toString();
-}
-
 export default async function ShopPage({ searchParams }: ShopPageProps) {
-  const urlParams = toURLSearchParams(searchParams);
-  const filters = parseProductListParams(urlParams);
-  const data = await getProductList(filters);
-
-  const initialQuery = buildQueryString(urlParams, ["page"]);
-
-  const addProductId = urlParams.get("add");
-  const addVariantId = urlParams.get("variant") ?? undefined;
-  const redirectParam = urlParams.get("redirect");
-  const refCode = urlParams.get("ref");
+  const addProductId =
+    typeof searchParams?.add === "string" ? (searchParams?.add as string) : undefined;
+  const addVariantId =
+    typeof searchParams?.variant === "string" ? (searchParams?.variant as string) : undefined;
+  const redirectParam =
+    typeof searchParams?.redirect === "string" ? (searchParams?.redirect as string) : undefined;
+  const refCode = typeof searchParams?.ref === "string" ? (searchParams?.ref as string) : undefined;
 
   let autoAddPayload: LinkAddPayload | null = null;
 
@@ -89,46 +63,71 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     }
   }
 
-  return (
-    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-      <AddFromLinkHandler payload={autoAddPayload} />
-      <header className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
-            {t("nav.shop")}
-          </h1>
-          <p className="mt-2 max-w-2xl text-sm text-neutral-600">
-            Browse minimalist silhouettes engineered for movement. Adjust filters to discover the
-            perfect fit across our latest drops.
-          </p>
-        </div>
-        <p className="text-sm text-neutral-500" aria-live="polite">
-          Showing <span className="font-medium text-neutral-900">{data.items.length}</span> of{" "}
-          <span className="font-medium text-neutral-900">{data.pageInfo.totalItems}</span> products
-        </p>
-      </header>
+  const { items } = await getProductList({ take: 16 });
+  const baseProducts: HomeProduct[] = items.map((product, index) => ({
+    id: product.id,
+    slug: product.slug,
+    title: product.title,
+    price: product.minVariantPrice ?? product.price,
+    thumbnailUrl: product.thumbnailUrl ?? null,
+    badge: index % 3 === 0 ? "New" : index % 3 === 1 ? "Trending" : "Soft Touch",
+    variants: product.variants.map((variant) => ({
+      id: variant.id,
+      name: variant.name,
+      price: variant.price,
+      stock: variant.stock,
+      size: variant.size,
+      color: variant.color,
+    })),
+  }));
+  const womensProducts = baseProducts.slice(0, 8);
+  const mensProducts = baseProducts.slice(4, 12);
 
-      <div className="grid gap-12 lg:grid-cols-[280px,1fr]">
-        <aside aria-label="Product filters">
-          <ProductFilters
-            facets={data.facets}
-            initialState={{
-              sizes: filters.sizes ?? [],
-              colors: filters.colors ?? [],
-              sort: filters.sort ?? "featured",
-              minPrice: filters.minPrice ?? undefined,
-              maxPrice: filters.maxPrice ?? undefined,
-            }}
-          />
-        </aside>
-        <div>
-          <ProductGrid
-            initialItems={data.items}
-            initialPageInfo={data.pageInfo}
-            initialQuery={initialQuery}
-          />
-        </div>
-      </div>
-    </section>
+  const heroSlides = [
+    {
+      id: "women",
+      title: "Cosy Luxe x Soft Sculpt",
+      eyebrow: "New in",
+      description: "All turning heads in burgundy, this season's hottest hue.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1400&q=80",
+      primaryCta: { label: "Shop new in", href: "/shop?sort=new" },
+      secondaryCta: { label: "Burgundy sets", href: "/shop?color=burgundy" },
+      alignment: "left" as const,
+    },
+    {
+      id: "men",
+      title: "For Winter Workouts",
+      eyebrow: "Menswear",
+      description: "New graphics that match your gym aesthetic. Head down, focus up.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1400&q=80",
+      primaryCta: { label: "Winter shop", href: "/shop?collection=winter" },
+      secondaryCta: { label: "New in", href: "/shop?sort=new&gender=men" },
+      alignment: "right" as const,
+    },
+  ];
+
+  return (
+    <div className="mx-auto flex max-w-[1120px] flex-col gap-14 px-4 py-12 sm:px-6 lg:px-0">
+      <AddFromLinkHandler payload={autoAddPayload} />
+      <HeroSection slides={heroSlides} />
+
+      <ProductCarousel
+        eyebrow="Womens"
+        title="New in"
+        products={womensProducts}
+        viewAllHref="/shop?gender=women"
+        variantLabel="women"
+      />
+
+      <ProductCarousel
+        eyebrow="Mens"
+        title="For winter workouts"
+        products={mensProducts}
+        viewAllHref="/shop?gender=men"
+        variantLabel="men"
+      />
+    </div>
   );
 }

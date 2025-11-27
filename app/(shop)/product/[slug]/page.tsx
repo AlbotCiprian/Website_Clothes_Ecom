@@ -16,6 +16,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 type ProductPageProps = {
   params: { slug: string };
+  searchParams?: Record<string, string | string[] | undefined>;
 };
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
@@ -47,7 +48,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params, searchParams }: ProductPageProps) {
   const product = await getProductBySlug(params.slug);
 
   if (!product) {
@@ -102,7 +103,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
     title: review.title,
     body: review.body,
     authorName: review.authorName,
-    createdAt: review.createdAt.toISOString(),
+    createdAt:
+      typeof review.createdAt === "string"
+        ? new Date(review.createdAt).toISOString()
+        : review.createdAt instanceof Date
+          ? review.createdAt.toISOString()
+          : new Date(review.createdAt ?? Date.now()).toISOString(),
   }));
 
   const breadcrumbs = buildBreadcrumbJsonLd([
@@ -125,6 +131,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
       { name: product.title, url: `${siteUrl}/product/${product.slug}` },
     ],
   });
+
+  const redirectParam =
+    typeof searchParams?.redirect === "string" ? (searchParams.redirect as string) : null;
 
   return (
     <>
@@ -149,6 +158,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           description={product.description}
           variants={variants}
           images={galleryImages}
+          redirect={redirectParam ?? undefined}
         />
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">

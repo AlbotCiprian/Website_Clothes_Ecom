@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { addItem } from "@/lib/cart";
+import { addItem, clearCart } from "@/lib/cart";
 
 export type LinkAddPayload = {
   productId: string;
@@ -92,6 +92,7 @@ export default function AddFromLinkHandler({ payload }: AddFromLinkHandlerProps)
     }
 
     try {
+      clearCart();
       addItem({
         id: `${payload.productId}-${payload.variant.id}`,
         productId: payload.productId,

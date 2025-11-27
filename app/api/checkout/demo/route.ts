@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { OrderStatus } from "@prisma/client";
-
 import { prisma } from "@/lib/db";
 
 const customerSchema = z.object({
@@ -47,7 +45,7 @@ export async function POST(request: Request) {
       const order = await tx.order.create({
         data: {
           orderNumber,
-          status: OrderStatus.PENDING,
+          status: "PENDING",
           total,
           currency: "USD",
           notes: JSON.stringify({
@@ -72,7 +70,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("[checkout.demo][POST]", error);
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: error.flatten() }, { status: 422 });
+      return NextResponse.json({ error: "Invalid checkout payload" }, { status: 400 });
     }
     return NextResponse.json({ error: "Checkout unavailable" }, { status: 500 });
   }

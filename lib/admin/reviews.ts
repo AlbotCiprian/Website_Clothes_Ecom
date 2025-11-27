@@ -1,9 +1,11 @@
-import { Prisma, ReviewStatus } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
 
+type ReviewStatusValue = "PENDING" | "APPROVED" | "REJECTED";
+
 export interface ReviewFilters {
-  status?: ReviewStatus | "all";
+  status?: ReviewStatusValue | "all";
   search?: string;
   page?: number;
   pageSize?: number;
@@ -14,7 +16,7 @@ export interface AdminReviewListItem {
   rating: number;
   title?: string | null;
   body: string;
-  status: ReviewStatus;
+  status: ReviewStatusValue;
   authorName: string;
   authorEmail?: string | null;
   productTitle: string;
@@ -91,13 +93,13 @@ export async function getAdminReviews(filters: ReviewFilters = {}): Promise<Admi
 export async function approveReview(id: string) {
   return prisma.review.update({
     where: { id },
-    data: { status: ReviewStatus.APPROVED },
+    data: { status: "APPROVED" },
   });
 }
 
 export async function rejectReview(id: string) {
   return prisma.review.update({
     where: { id },
-    data: { status: ReviewStatus.REJECTED },
+    data: { status: "REJECTED" },
   });
 }

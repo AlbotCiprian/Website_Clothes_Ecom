@@ -12,6 +12,7 @@ type ProductDetailProps = {
   description?: string | null;
   variants: PurchaseVariant[];
   images: GalleryImage[];
+  redirect?: string;
 };
 
 export default function ProductDetail({
@@ -20,6 +21,7 @@ export default function ProductDetail({
   description,
   variants,
   images,
+  redirect,
 }: ProductDetailProps) {
   const initialVariantId = variants[0]?.id ?? null;
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(initialVariantId);
@@ -60,9 +62,15 @@ export default function ProductDetail({
           selectedVariantId={selectedVariantId}
           onVariantChange={handleVariantChange}
           onVariantImageChange={handleVariantImageChange}
+          redirect={redirect}
         />
       </div>
-      <StickyATC productId={productId} productTitle={productTitle} variant={selectedVariant} />
+      <StickyATC
+        productId={productId}
+        productTitle={productTitle}
+        variant={selectedVariant}
+        redirect={redirect}
+      />
     </>
   );
 }

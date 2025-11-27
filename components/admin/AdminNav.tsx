@@ -16,6 +16,7 @@ const links = [
   { href: "/admin/products", label: "Products" },
   { href: "/admin/reviews", label: "Reviews" },
   { href: "/admin/links", label: "Links" },
+  { href: "/admin/orders", label: "Orders" },
 ];
 
 export default function AdminNav({ userEmail }: AdminNavProps) {

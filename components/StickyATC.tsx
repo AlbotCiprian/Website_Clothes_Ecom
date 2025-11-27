@@ -16,9 +16,10 @@ type StickyATCProps = {
     size?: string | null;
     color?: string | null;
   };
+  redirect?: string;
 };
 
-export default function StickyATC({ productId, productTitle, variant }: StickyATCProps) {
+export default function StickyATC({ productId, productTitle, variant, redirect }: StickyATCProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -48,7 +49,13 @@ export default function StickyATC({ productId, productTitle, variant }: StickyAT
           <p className="truncate text-sm font-medium text-neutral-900">{variant.name}</p>
           <p className="text-xs text-neutral-500">{formatMoney(variant.price)}</p>
         </div>
-        <AddToCartButton productId={productId} productTitle={productTitle} variant={variant} size="default" />
+        <AddToCartButton
+          productId={productId}
+          productTitle={productTitle}
+          variant={variant}
+          size="default"
+          redirect={redirect}
+        />
       </div>
     </div>
   );

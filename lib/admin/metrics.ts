@@ -1,5 +1,3 @@
-import { OrderStatus } from "@prisma/client";
-
 import { prisma } from "@/lib/db";
 
 type Range = 7 | 30;
@@ -43,7 +41,7 @@ export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
     }),
     prisma.order.findMany({
       where: {
-        status: OrderStatus.PENDING,
+        status: "PENDING",
         createdAt: { gte: from30 },
       },
       select: { createdAt: true },

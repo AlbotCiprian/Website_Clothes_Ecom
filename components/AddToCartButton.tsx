@@ -24,6 +24,7 @@ type AddToCartButtonProps = {
   buttonVariant?: "default" | "secondary" | "outline" | "ghost";
   imageUrl?: string | null;
   trackerCode?: string;
+  redirect?: string | null;
 };
 
 type Status = "idle" | "added" | "error";
@@ -39,6 +40,7 @@ export default function AddToCartButton({
   buttonVariant = "default",
   imageUrl,
   trackerCode,
+  redirect = null,
 }: AddToCartButtonProps) {
   const [isPending, setIsPending] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
@@ -92,6 +94,10 @@ export default function AddToCartButton({
         clearTimeout(timeoutRef.current);
       }
       timeoutRef.current = setTimeout(() => setStatus("idle"), 2500);
+
+      if (redirect) {
+        window.location.href = redirect;
+      }
     } catch (error) {
       console.error("Failed to add to cart", error);
       setStatus("error");

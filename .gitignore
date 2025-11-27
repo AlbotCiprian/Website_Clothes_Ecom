@@ -29,3 +29,8 @@ public/images/
 *.woff2
 *.ttf
 *.otf
+
+# Playwright / testing artifacts
+test-results/
+playwright-report/
+.cache/ms-playwright/

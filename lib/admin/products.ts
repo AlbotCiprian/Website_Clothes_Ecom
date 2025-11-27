@@ -1,4 +1,4 @@
-import { Prisma, ProductStatus } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
 import { prisma } from "@/lib/db";
@@ -10,9 +10,11 @@ export type ProductSort =
   | "price-desc"
   | "status";
 
+type ProductStatusValue = "PUBLISHED" | "DRAFT" | "ARCHIVED";
+
 export interface ProductListFilters {
   search?: string;
-  status?: ProductStatus | "all";
+  status?: ProductStatusValue | "all";
   sort?: ProductSort;
   page?: number;
   pageSize?: number;
@@ -22,7 +24,7 @@ export interface AdminProductListItem {
   id: string;
   title: string;
   slug: string;
-  status: ProductStatus;
+  status: ProductStatusValue;
   price: number;
   updatedAt: Date;
   variantsCount: number;
@@ -143,11 +145,14 @@ export type AdminProductInput = {
   price: number;
   currency?: string | null;
   thumbnailUrl?: string | null;
-  status: ProductStatus;
+  status: ProductStatusValue;
+  sellerId?: string;
   variants: AdminVariantInput[];
 };
 
 export async function createAdminProduct(input: AdminProductInput) {
+  const sellerId = await resolveSellerId(input.sellerId);
+
   return prisma.product.create({
     data: {
       title: input.title,
@@ -157,6 +162,9 @@ export async function createAdminProduct(input: AdminProductInput) {
       currency: input.currency ?? "USD",
       thumbnailUrl: input.thumbnailUrl,
       status: input.status,
+      seller: {
+        connect: { id: sellerId },
+      },
       variants: {
         create: input.variants
           .filter((variant) => !variant.deleted)
@@ -191,6 +199,7 @@ export async function updateAdminProduct(id: string, input: AdminProductInput) {
       currency: input.currency ?? "USD",
       thumbnailUrl: input.thumbnailUrl,
       status: input.status,
+      seller: input.sellerId ? { connect: { id: input.sellerId } } : undefined,
       variants: {
         create: createVariants.map((variant) => ({
           name: variant.name,
@@ -247,13 +256,24 @@ const productPayloadSchema = z.object({
     return /^\d+(\.\d{1,2})?$/.test(value.trim());
   }, "Invalid price"),
   currency: z.string().trim().optional(),
-  thumbnailUrl: z.string().url().optional(),
+  thumbnailUrl: z
+    .string()
+    .trim()
+    .optional()
+    .or(z.literal(""))
+    .refine(
+      (value) => value === undefined || value === "" || isValidUrl(value),
+      { message: "Invalid url" },
+    ),
   status: z.enum(["PUBLISHED", "DRAFT", "ARCHIVED"]).default("PUBLISHED"),
+  sellerId: z.string().trim().optional(),
   variants: z.array(variantPayloadSchema).default([]),
 });
 
 export function parseAdminProductPayload(payload: unknown): AdminProductInput {
   const parsed = productPayloadSchema.parse(payload);
+  const normalizedThumb =
+    parsed.thumbnailUrl && parsed.thumbnailUrl.length > 0 ? parsed.thumbnailUrl : null;
 
   return {
     title: parsed.title,
@@ -261,8 +281,9 @@ export function parseAdminProductPayload(payload: unknown): AdminProductInput {
     description: parsed.description ?? null,
     price: normalisePrice(parsed.price),
     currency: parsed.currency ? parsed.currency.toUpperCase() : "USD",
-    thumbnailUrl: parsed.thumbnailUrl ?? null,
+    thumbnailUrl: normalizedThumb,
     status: parsed.status,
+    sellerId: parsed.sellerId?.length ? parsed.sellerId : undefined,
     variants: parsed.variants.map((variant) => {
       const stockValue =
         typeof variant.stock === "number"
@@ -295,4 +316,30 @@ function normalisePrice(value: number | string) {
     return 0;
   }
   return Math.round(parsed * 100);
+}
+
+async function resolveSellerId(preferred?: string) {
+  if (preferred) {
+    return preferred;
+  }
+
+  const seller = await prisma.seller.findFirst({
+    orderBy: { createdAt: "asc" },
+    select: { id: true },
+  });
+
+  if (!seller) {
+    throw new Error("No seller available. Please create a seller before adding products.");
+  }
+
+  return seller.id;
+}
+
+function isValidUrl(url: string) {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
 }
